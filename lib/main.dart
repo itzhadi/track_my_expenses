@@ -1,7 +1,7 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:track_my_expenses/components/home_screen.dart';
+import 'package:track_my_expenses/screens/home_screen.dart';
 
 void main() => runApp(
     DevicePreview(enabled: !kReleaseMode, builder: (context) => MyApp()));
@@ -14,9 +14,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         theme: ThemeData.dark().copyWith(
             scaffoldBackgroundColor: Colors.white,
-            primaryColor: Colors.black,
+            primaryColor: Colors.blueGrey,
             appBarTheme: AppBarTheme(
-              color: Colors.black12,
+              color: Colors.blueGrey,
             )),
         home: HomeScreen());
   }
