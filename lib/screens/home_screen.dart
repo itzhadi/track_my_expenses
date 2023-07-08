@@ -22,12 +22,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white60,
-        title: Center(
-          child: Text("Track My Expenses", style: kAppBarTextStyle),
-        ),
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Colors.white60,
+      //   title: Center(
+      //     child: Text("Track My Expenses", style: kAppBarTextStyle),
+      //   ),
+      // ),
       body: _pageNo[selectedPage],
       bottomNavigationBar: ConvexAppBar(
         color: Colors.black38,

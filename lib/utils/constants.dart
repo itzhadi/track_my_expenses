@@ -7,5 +7,11 @@ const kText = TextStyle(
     color: Colors.black54,
     fontWeight: FontWeight.bold);
 
+const kTextSetUp = TextStyle(
+    fontFamily: 'Caprasimo',
+    fontSize: 13,
+    color: Colors.black54,
+    fontWeight: FontWeight.bold);
+
 const kAppBarTextStyle =
     TextStyle(fontFamily: 'Caprasimo', fontSize: 26, color: Colors.black54);
