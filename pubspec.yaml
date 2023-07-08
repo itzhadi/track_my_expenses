@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   device_preview: ^1.1.0
   convex_bottom_bar: ^3.2.0
+  google_fonts: ^5.1.0
 
 dev_dependencies:
   flutter_test:
@@ -76,11 +77,16 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
+  fonts:
+     - family: Caprasimo
+       fonts:
+         - asset: fonts/Caprasimo-Regular.ttf
+     - family: BebasNeue
+       fonts:
+         - asset: fonts/BebasNeue-Regular.ttf
+     - family: Calistoga
+       fonts:
+         - asset: fonts/Calistoga-Regular.ttf
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

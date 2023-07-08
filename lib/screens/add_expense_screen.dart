@@ -9,7 +9,7 @@ class AddExpense extends StatelessWidget {
       child: Container(
         child: Text(
           "AddExpense",
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold),
         ),
       ),
     );
