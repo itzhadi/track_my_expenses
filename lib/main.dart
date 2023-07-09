@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:track_my_expenses/screens/home_screen.dart';
 
+import 'components/splash.dart';
+
 void main() => runApp(
     DevicePreview(enabled: !kReleaseMode, builder: (context) => MyApp()));
 
@@ -28,8 +30,7 @@ class MyApp extends StatelessWidget {
           appBarTheme: AppBarTheme(
             color: Colors.blueGrey,
           )),
-      home:
-          Directionality(textDirection: TextDirection.rtl, child: HomeScreen()),
+      home: Directionality(textDirection: TextDirection.rtl, child: Splash()),
     );
   }
 }

@@ -7,7 +7,13 @@ const kText = TextStyle(
     color: Colors.black54,
     fontWeight: FontWeight.bold);
 
-const kTextSetUp = TextStyle(
+const kTextSetUp_16 = TextStyle(
+    fontFamily: 'Caprasimo',
+    fontSize: 16,
+    color: Colors.black54,
+    fontWeight: FontWeight.bold);
+
+const kTextSetUp_13 = TextStyle(
     fontFamily: 'Caprasimo',
     fontSize: 13,
     color: Colors.black54,

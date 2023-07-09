@@ -17,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int selectedPage = 0;
-  final _pageNo = [Expenses(), AddExpense(), History(), Setup()];
+  final _pageNo = [AddExpense(), Expenses(), History()];
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +35,9 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.white60,
         initialActiveIndex: 1,
         items: [
-          TabItem(icon: Icons.home),
           TabItem(icon: Icons.add, title: 'הוסף הוצאה'),
+          TabItem(icon: Icons.home),
           TabItem(icon: Icons.history_edu, title: 'היסטוריה'),
-          TabItem(icon: Icons.history_edu, title: 'הגדרות'),
         ],
         onTap: (int i) {
           setState(
