@@ -1,10 +1,7 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:track_my_expenses/screens/history_screen.dart';
-import 'package:track_my_expenses/screens/setup_screen.dart';
-
-import '../utils/constants.dart';
 import 'add_expense_screen.dart';
 import 'expenses_screen.dart';
 
@@ -35,9 +32,9 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.white60,
         initialActiveIndex: 1,
         items: [
-          TabItem(icon: Icons.add, title: 'הוסף הוצאה'),
-          TabItem(icon: Icons.home),
-          TabItem(icon: Icons.history_edu, title: 'היסטוריה'),
+          TabItem(icon: Icons.add_rounded, title: 'הוסף'),
+          TabItem(icon: Icons.home, title: 'בית'),
+          TabItem(icon: Icons.history, title: 'היסטוריה'),
         ],
         onTap: (int i) {
           setState(

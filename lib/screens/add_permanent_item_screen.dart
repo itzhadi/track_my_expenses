@@ -25,7 +25,7 @@ class AddIPerItemScreen extends StatelessWidget {
             children: [
               TextField(
                 maxLength: 6,
-                autofocus: true,
+                autofocus: false,
                 onChanged: (value) {},
                 style: TextStyle(color: Colors.black38, fontSize: 25),
                 textAlign: TextAlign.center,

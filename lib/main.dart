@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: [
         Locale("en", "US"),
         Locale("he", "IL"), // OR Locale('ar', 'AE') OR Other RTL locales
+        Locale('he', ''), // Hebrew
       ],
       theme: ThemeData.dark().copyWith(
           scaffoldBackgroundColor: Colors.white,
@@ -30,7 +31,8 @@ class MyApp extends StatelessWidget {
           appBarTheme: AppBarTheme(
             color: Colors.blueGrey,
           )),
-      home: Directionality(textDirection: TextDirection.rtl, child: Splash()),
+      home:
+          Directionality(textDirection: TextDirection.rtl, child: HomeScreen()),
     );
   }
 }

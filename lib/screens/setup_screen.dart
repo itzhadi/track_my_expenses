@@ -29,7 +29,7 @@ class Setup extends StatelessWidget {
                   ),
                   SizedBox.fromSize(size: Size.fromHeight(45.0)),
                   TextField(
-                    maxLength: 6321654,
+                    maxLength: 6,
                     style: TextStyle(color: Colors.black38, fontSize: 25),
                     textAlign: TextAlign.center,
                     decoration: InputDecoration(
@@ -124,9 +124,10 @@ class AddPerItemFrame extends StatelessWidget {
                 context: context,
                 isScrollControlled: true,
                 builder: (context) => SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
                   child: Container(
                     padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                        top: MediaQuery.of(context).viewInsets.top),
                     child: AddIPerItemScreen(color: color, descBtn: descBtn),
                   ),
                 ),
