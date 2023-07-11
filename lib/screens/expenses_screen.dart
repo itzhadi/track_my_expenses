@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../components/date_picker.dart';
-import '../components/hor_cal.dart';
-import '../components/horizontal_calendar.dart';
+import '../components/horizontal_month_cal.dart';
 import '../utils/colors.dart';
+import '../utils/constants.dart';
 
 class Expenses extends StatelessWidget {
   static const String id = 'expense_screen';
-  final int? balance = 1;
+  final int? balance = -500;
 
   @override
   Widget build(BuildContext context) {
@@ -21,19 +20,56 @@ class Expenses extends StatelessWidget {
             child: Column(
               children: [
                 HorizontalMonthCalendar(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(
-                      children: [Text('הוצאות'), Text('500')],
+                Container(
+                  width: double.infinity,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: Colors.black54,
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(15.0),
+                      topLeft: Radius.circular(15.0),
+                      bottomRight: Radius.circular(15.0),
+                      bottomLeft: Radius.circular(15.0),
                     ),
-                    Row(
-                      children: [Text("balance"), Text("שח")],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          children: [
+                            Text('הוצאות', style: kTextExpenseScreen),
+                            Text('500', style: kTextExpenseScreen1),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              balance.toString(),
+                              style: kTextExpenseScreen,
+                            ),
+                            Text(
+                              kNewShekel,
+                              style: kTextExpenseScreen,
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              'הכנסות',
+                              style: kTextExpenseScreen,
+                            ),
+                            Text(
+                              '500',
+                              style: kTextExpenseScreen1,
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                    Column(
-                      children: [Text('הכנסות'), Text('500')],
-                    ),
-                  ],
+                  ),
                 )
               ],
             ),

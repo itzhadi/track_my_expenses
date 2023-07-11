@@ -20,18 +20,24 @@ class _HorizontalMonthCalendarState extends State<HorizontalMonthCalendar> {
           customDayBuilder: null,
           daysHaveCircularBorder: false,
           locale: 'he',
-          headerTextStyle: TextStyle(color: Colors.black, fontSize: 25),
+          headerTextStyle: TextStyle(
+              color: Colors.black54, fontSize: 25, fontWeight: FontWeight.bold),
           headerMargin: EdgeInsets.only(right: 1, left: 1),
           weekFormat: false,
           showWeekDays: false,
           showOnlyCurrentMonthDate: true,
-          iconColor: Colors.black,
+          iconColor: Colors.black54,
           markedDateIconBorderColor: Colors.black,
           onCalendarChanged: (date) {},
           thisMonthDayBorderColor: Colors.grey,
           height: 48.0,
           disableDayPressed: true,
           selectedDateTime: _currentDate,
+          onHeaderTitlePressed: (date) {
+            //Todo
+            print(date.toString());
+          },
+
           //daysHaveCircularBorder: false,
           customGridViewPhysics: NeverScrollableScrollPhysics(),
           // markedDatesMap: _getMarkedDateMap(),

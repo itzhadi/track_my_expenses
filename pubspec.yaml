@@ -101,6 +101,10 @@ flutter:
      - family: Calistoga
        fonts:
          - asset: fonts/Calistoga-Regular.ttf
+     - family: SecularOne
+       fonts:
+         - asset: fonts/SecularOne-Regular.ttf
+
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:
