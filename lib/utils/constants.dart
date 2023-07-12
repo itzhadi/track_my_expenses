@@ -23,9 +23,12 @@ const kAppBarTextStyle =
     TextStyle(fontFamily: 'Caprasimo', fontSize: 26, color: Colors.black54);
 
 const kTextExpenseScreen =
-    TextStyle(color: Colors.white, fontSize: 18, fontFamily: 'SecularOne');
+    TextStyle(color: Colors.white60, fontSize: 18, fontFamily: 'SecularOne');
+
+const kTextExpenseScreenBalance =
+    TextStyle(color: Colors.white60, fontSize: 25, fontFamily: 'SecularOne');
 
 const kTextExpenseScreen1 =
-    TextStyle(color: Colors.white, fontSize: 15, fontFamily: 'SecularOne');
+    TextStyle(color: Colors.white60, fontSize: 15, fontFamily: 'SecularOne');
 
 const kNewShekel = '₪';

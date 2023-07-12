@@ -6,59 +6,62 @@ import '../utils/constants.dart';
 
 class Expenses extends StatelessWidget {
   static const String id = 'expense_screen';
-  final int? balance = -500;
+  final int? balance = 1500;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: balance! >= 0 ? green : red,
+      //backgroundColor: balance! >= 0 ? green : red,
+      backgroundColor: Color(0xFF4E4E5A),
       body: Column(
         children: [
           Container(
-            padding: EdgeInsets.only(
-                top: 50.0, left: 30.0, right: 30.0, bottom: 30.0),
+            padding:
+                EdgeInsets.only(top: 50.0, left: 30.0, right: 30.0, bottom: 5),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 HorizontalMonthCalendar(),
-                Container(
-                  width: double.infinity,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: Colors.black54,
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(15.0),
-                      topLeft: Radius.circular(15.0),
-                      bottomRight: Radius.circular(15.0),
-                      bottomLeft: Radius.circular(15.0),
+                Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          balance!.isNegative
+                              ? balance!.abs().toString() + '-'
+                              : balance.toString(),
+                          style: TextStyle(
+                              color: balance!.isNegative ? red : green,
+                              fontSize: 38,
+                              fontFamily: 'Caprasimo'),
+                          // textAlign: TextAlignVertical.,
+                        ),
+                        Text(
+                          ' ' + kNewShekel,
+                          style: TextStyle(
+                              color: balance!.isNegative ? red : green,
+                              fontSize: 38,
+                              fontFamily: 'Caprasimo',
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ],
                     ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Column(
                           children: [
-                            Text('הוצאות', style: kTextExpenseScreen),
+                            Text('הכנסות', style: kTextExpenseScreen),
                             Text('500', style: kTextExpenseScreen1),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              balance.toString(),
-                              style: kTextExpenseScreen,
-                            ),
-                            Text(
-                              kNewShekel,
-                              style: kTextExpenseScreen,
-                            ),
                           ],
                         ),
                         Column(
                           children: [
                             Text(
-                              'הכנסות',
+                              'הוצאות',
                               style: kTextExpenseScreen,
                             ),
                             Text(
@@ -69,8 +72,8 @@ class Expenses extends StatelessWidget {
                         ),
                       ],
                     ),
-                  ),
-                )
+                  ],
+                ),
               ],
             ),
           ),
