@@ -12,7 +12,7 @@ class Expenses extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: black_mat,
+      backgroundColor: Colors.black,
       body: Column(
         children: [
           Container(
