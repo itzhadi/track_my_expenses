@@ -5,7 +5,8 @@ part 'item_model.g.dart';
 class ItemModel = _ItemModel with _$ItemModel;
 
 abstract class _ItemModel with Store {
-  _ItemModel(this.description, this.amount, this.date, this.isExpense);
+  _ItemModel(this.description, this.amount, this.date, this.isExpense,
+      this.isPermanent);
 
   @observable
   String? description;
@@ -18,4 +19,7 @@ abstract class _ItemModel with Store {
 
   @observable
   bool? isExpense = true;
+
+  @observable
+  bool isPermanent = false;
 }

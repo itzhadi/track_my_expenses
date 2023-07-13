@@ -1,5 +1,5 @@
 import 'package:mobx/mobx.dart';
-import 'package:track_my_expenses/store/models/item_model.dart';
+import 'package:track_my_expenses/store/item_model.dart';
 
 part 'item_list.g.dart';
 
@@ -56,8 +56,10 @@ abstract class _ItemList with Store {
           items.where((item) => item.date?.compareTo(dateTime) == true));
 
   @action
-  void addItemModel(String desc, int amount, DateTime date, bool isExpense) {
-    ItemModel item = ItemModel(desc, amount.toString(), date, isExpense);
+  void addItemModel(String desc, int amount, DateTime date, bool isExpense,
+      bool isPermanent) {
+    ItemModel item =
+        ItemModel(desc, amount.toString(), date, isExpense, isPermanent);
     items.add(item);
   }
 

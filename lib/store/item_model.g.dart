@@ -71,13 +71,30 @@ mixin _$ItemModel on _ItemModel, Store {
     });
   }
 
+  late final _$isPermanentAtom =
+      Atom(name: '_ItemModel.isPermanent', context: context);
+
+  @override
+  bool get isPermanent {
+    _$isPermanentAtom.reportRead();
+    return super.isPermanent;
+  }
+
+  @override
+  set isPermanent(bool value) {
+    _$isPermanentAtom.reportWrite(value, super.isPermanent, () {
+      super.isPermanent = value;
+    });
+  }
+
   @override
   String toString() {
     return '''
 description: ${description},
 amount: ${amount},
 date: ${date},
-isExpense: ${isExpense}
+isExpense: ${isExpense},
+isPermanent: ${isPermanent}
     ''';
   }
 }
