@@ -29,7 +29,6 @@ class Expenses extends StatelessWidget {
                 EdgeInsets.only(top: 50.0, left: 30.0, right: 30.0, bottom: 5),
             child: Observer(
               builder: (_) => Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   HorizontalMonthCalendar(),
                   Column(

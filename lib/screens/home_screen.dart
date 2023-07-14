@@ -25,11 +25,6 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Scaffold(
           body: _pageNo[selectedPage],
           bottomNavigationBar: Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("images/black-leather.jpg"),
-                  fit: BoxFit.cover),
-            ),
             child: ConvexAppBar(
               color: Colors.white60,
               activeColor: Colors.white60,
