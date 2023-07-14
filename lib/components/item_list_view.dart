@@ -13,6 +13,8 @@ class ItemListView extends StatelessWidget {
     final list = Provider.of<ItemList>(context);
     return Observer(
       builder: (_) => ListView.builder(
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
         itemCount: list.visibleItems.length,
         itemBuilder: (_, index) {
           final item = list.visibleItems[index];

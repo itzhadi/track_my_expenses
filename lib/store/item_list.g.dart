@@ -43,6 +43,12 @@ mixin _$ItemList on _ItemList, Store {
           Computed<ObservableList<ItemModel>>(() => super.visibleItems,
               name: '_ItemList.visibleItems'))
       .value;
+  Computed<int>? _$balanceComputed;
+
+  @override
+  int get balance => (_$balanceComputed ??=
+          Computed<int>(() => super.balance, name: '_ItemList.balance'))
+      .value;
 
   late final _$itemsAtom = Atom(name: '_ItemList.items', context: context);
 
@@ -74,8 +80,62 @@ mixin _$ItemList on _ItemList, Store {
     });
   }
 
+  late final _$totalIncomesAtom =
+      Atom(name: '_ItemList.totalIncomes', context: context);
+
+  @override
+  int get totalIncomes {
+    _$totalIncomesAtom.reportRead();
+    return super.totalIncomes;
+  }
+
+  @override
+  set totalIncomes(int value) {
+    _$totalIncomesAtom.reportWrite(value, super.totalIncomes, () {
+      super.totalIncomes = value;
+    });
+  }
+
+  late final _$totalExpensesAtom =
+      Atom(name: '_ItemList.totalExpenses', context: context);
+
+  @override
+  int get totalExpenses {
+    _$totalExpensesAtom.reportRead();
+    return super.totalExpenses;
+  }
+
+  @override
+  set totalExpenses(int value) {
+    _$totalExpensesAtom.reportWrite(value, super.totalExpenses, () {
+      super.totalExpenses = value;
+    });
+  }
+
   late final _$_ItemListActionController =
       ActionController(name: '_ItemList', context: context);
+
+  @override
+  void calculateIncomes() {
+    final _$actionInfo = _$_ItemListActionController.startAction(
+        name: '_ItemList.calculateIncomes');
+    try {
+      return super.calculateIncomes();
+    } finally {
+      _$_ItemListActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void calculateExpenses() {
+    final _$actionInfo = _$_ItemListActionController.startAction(
+        name: '_ItemList.calculateExpenses');
+    try {
+      return super.calculateExpenses();
+    } finally {
+      _$_ItemListActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   ObservableList<ItemModel> serchedItemListByAmount(int amount) {
@@ -149,11 +209,14 @@ mixin _$ItemList on _ItemList, Store {
     return '''
 items: ${items},
 filter: ${filter},
+totalIncomes: ${totalIncomes},
+totalExpenses: ${totalExpenses},
 expensesOnly: ${expensesOnly},
 incomesOnly: ${incomesOnly},
 hasExpenses: ${hasExpenses},
 hasIncomes: ${hasIncomes},
-visibleItems: ${visibleItems}
+visibleItems: ${visibleItems},
+balance: ${balance}
     ''';
   }
 }

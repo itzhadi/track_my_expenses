@@ -14,6 +14,12 @@ abstract class _ItemList with Store {
   @observable
   VisibilityFilter filter = VisibilityFilter.all;
 
+  @observable
+  int totalIncomes = 0;
+
+  @observable
+  int totalExpenses = 0;
+
   @computed
   ObservableList<ItemModel> get expensesOnly =>
       ObservableList.of(items.where((item) => item.isExpense == true));
@@ -41,6 +47,27 @@ abstract class _ItemList with Store {
   }
 
   @action
+  void calculateIncomes() {
+    int sum = 0;
+    incomesOnly.forEach((element) {
+      sum += int.parse(element.amount!);
+    });
+    totalIncomes = sum;
+  }
+
+  @action
+  void calculateExpenses() {
+    int sum = 0;
+    expensesOnly.forEach((element) {
+      sum += int.parse(element.amount!);
+    });
+    totalExpenses = sum;
+  }
+
+  @computed
+  int get balance => totalIncomes - totalExpenses;
+
+  @action
   ObservableList<ItemModel> serchedItemListByAmount(int amount) =>
       ObservableList.of(items
           .where((item) => item.amount?.contains(amount.toString()) == true));
@@ -58,6 +85,7 @@ abstract class _ItemList with Store {
   @action
   void addItemModel(String desc, int amount, DateTime date, bool isExpense,
       bool isPermanent) {
+    isExpense ? totalExpenses += amount : totalIncomes += amount;
     ItemModel item =
         ItemModel(desc, amount.toString(), date, isExpense, isPermanent);
     items.add(item);

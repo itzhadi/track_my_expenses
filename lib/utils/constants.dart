@@ -32,3 +32,9 @@ const kTextExpenseScreen1 =
     TextStyle(color: Colors.white60, fontSize: 15, fontFamily: 'SecularOne');
 
 const kNewShekel = '₪';
+
+const List<Widget> choicesItems = <Widget>[
+  Text('הוצאות'),
+  Text('הכל'),
+  Text('הכנסות')
+];
