@@ -36,12 +36,20 @@ class ItemTile extends StatelessWidget {
       ),
       subTitle: Padding(
         padding: const EdgeInsets.only(right: 3.0, bottom: 2.0, top: 2.0),
-        child: Text(
-          HelperFunctions.getNumberFormat(int.parse(amount!)).toString() +
-              ' ' +
-              kNewShekel,
-          style: TextStyle(
-              color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500),
+        child: Row(
+          children: [
+            Text(
+              HelperFunctions.getNumberFormat(int.parse(amount!)).toString(),
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500),
+            ),
+            Text(
+              ' ' + kNewShekel,
+              style: kNewShekelTileStyle,
+            )
+          ],
         ),
       ),
       color: Colors.white70,

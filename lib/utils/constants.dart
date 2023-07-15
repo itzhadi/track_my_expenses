@@ -28,13 +28,19 @@ const kTextExpenseScreen =
 const kTextExpenseScreenBalance =
     TextStyle(color: Colors.white60, fontSize: 25, fontFamily: 'SecularOne');
 
-const kTextExpenseScreen1 =
+const kTextExpenseAndIncomes =
     TextStyle(color: Colors.white60, fontSize: 15, fontFamily: 'SecularOne');
 
 const kTextSearch =
     TextStyle(color: Colors.white60, fontSize: 10, fontFamily: 'SecularOne');
 
 const kNewShekel = '₪';
+
+const kNewShekelStyle =
+    TextStyle(color: Colors.white30, fontSize: 15, fontFamily: 'Caprasimo');
+
+const kNewShekelTileStyle =
+    TextStyle(color: Colors.black26, fontSize: 15, fontFamily: 'Caprasimo');
 
 const List<Widget> choicesItems = <Widget>[
   Text('הוצאות'),

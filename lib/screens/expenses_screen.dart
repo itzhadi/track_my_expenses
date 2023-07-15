@@ -50,14 +50,17 @@ class Expenses extends StatelessWidget {
                               fontFamily: 'Caprasimo',
                             ),
                           ),
-                          Text(
-                            ' ' + kNewShekel,
-                            style: TextStyle(
-                                color:
-                                    itemList.balance.isNegative ? red : green,
-                                fontSize: 30,
-                                fontFamily: 'Caprasimo',
-                                fontWeight: FontWeight.w600),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: Text(
+                              ' ' + kNewShekel,
+                              style: TextStyle(
+                                  color:
+                                      itemList.balance.isNegative ? red : green,
+                                  fontSize: 22,
+                                  fontFamily: 'Caprasimo',
+                                  fontWeight: FontWeight.w400),
+                            ),
                           ),
                         ],
                       ),
@@ -68,11 +71,22 @@ class Expenses extends StatelessWidget {
                           Column(
                             children: [
                               Text('הכנסות', style: kTextExpenseScreen),
-                              Text(
-                                  HelperFunctions.getNumberFormat(
-                                          itemList.totalIncomes)
-                                      .toString(),
-                                  style: kTextExpenseScreen1),
+                              Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 4.0),
+                                    child: Text(
+                                        HelperFunctions.getNumberFormat(
+                                                itemList.totalIncomes)
+                                            .toString(),
+                                        style: kTextExpenseAndIncomes),
+                                  ),
+                                  Text(
+                                    ' ' + kNewShekel,
+                                    style: kNewShekelStyle,
+                                  )
+                                ],
+                              ),
                             ],
                           ),
                           Column(
@@ -81,11 +95,22 @@ class Expenses extends StatelessWidget {
                                 'הוצאות',
                                 style: kTextExpenseScreen,
                               ),
-                              Text(
-                                HelperFunctions.getNumberFormat(
-                                        itemList.totalExpenses)
-                                    .toString(),
-                                style: kTextExpenseScreen1,
+                              Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 4.0),
+                                    child: Text(
+                                      HelperFunctions.getNumberFormat(
+                                              itemList.totalExpenses)
+                                          .toString(),
+                                      style: kTextExpenseAndIncomes,
+                                    ),
+                                  ),
+                                  Text(
+                                    ' ' + kNewShekel,
+                                    style: kNewShekelStyle,
+                                  )
+                                ],
                               ),
                             ],
                           ),
