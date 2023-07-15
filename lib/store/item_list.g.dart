@@ -9,6 +9,13 @@ part of 'item_list.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$ItemList on _ItemList, Store {
+  Computed<ObservableList<ItemModel>>? _$searchedItemsComputed;
+
+  @override
+  ObservableList<ItemModel> get searchedItems => (_$searchedItemsComputed ??=
+          Computed<ObservableList<ItemModel>>(() => super.searchedItems,
+              name: '_ItemList.searchedItems'))
+      .value;
   Computed<ObservableList<ItemModel>>? _$expensesOnlyComputed;
 
   @override
@@ -112,6 +119,38 @@ mixin _$ItemList on _ItemList, Store {
     });
   }
 
+  late final _$showSearchAtom =
+      Atom(name: '_ItemList.showSearch', context: context);
+
+  @override
+  bool get showSearch {
+    _$showSearchAtom.reportRead();
+    return super.showSearch;
+  }
+
+  @override
+  set showSearch(bool value) {
+    _$showSearchAtom.reportWrite(value, super.showSearch, () {
+      super.showSearch = value;
+    });
+  }
+
+  late final _$_searchItemAtom =
+      Atom(name: '_ItemList._searchItem', context: context);
+
+  @override
+  String get _searchItem {
+    _$_searchItemAtom.reportRead();
+    return super._searchItem;
+  }
+
+  @override
+  set _searchItem(String value) {
+    _$_searchItemAtom.reportWrite(value, super._searchItem, () {
+      super._searchItem = value;
+    });
+  }
+
   late final _$_ItemListActionController =
       ActionController(name: '_ItemList', context: context);
 
@@ -205,12 +244,47 @@ mixin _$ItemList on _ItemList, Store {
   }
 
   @override
+  void sortListByPerAndDate() {
+    final _$actionInfo = _$_ItemListActionController.startAction(
+        name: '_ItemList.sortListByPerAndDate');
+    try {
+      return super.sortListByPerAndDate();
+    } finally {
+      _$_ItemListActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void toggleShowSearch() {
+    final _$actionInfo = _$_ItemListActionController.startAction(
+        name: '_ItemList.toggleShowSearch');
+    try {
+      return super.toggleShowSearch();
+    } finally {
+      _$_ItemListActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setSerchItem(String text) {
+    final _$actionInfo =
+        _$_ItemListActionController.startAction(name: '_ItemList.setSerchItem');
+    try {
+      return super.setSerchItem(text);
+    } finally {
+      _$_ItemListActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 items: ${items},
 filter: ${filter},
 totalIncomes: ${totalIncomes},
 totalExpenses: ${totalExpenses},
+showSearch: ${showSearch},
+searchedItems: ${searchedItems},
 expensesOnly: ${expensesOnly},
 incomesOnly: ${incomesOnly},
 hasExpenses: ${hasExpenses},

@@ -24,8 +24,8 @@ class AddExpense extends StatelessWidget {
                   color: Colors.green,
                   onPressed: () {
                     list.addItemModel(
-                        '5קניות',
-                        100,
+                        '${new Random().nextInt(10 - 1)}קניות',
+                        100 + new Random().nextInt(100 - 10),
                         new DateTime(
                             2020 + new Random().nextInt(2023 - 2020),
                             1 + new Random().nextInt(12 - 1),
@@ -37,8 +37,8 @@ class AddExpense extends StatelessWidget {
                   color: Colors.red,
                   onPressed: () {
                     list.addItemModel(
-                        '5קניות',
-                        100,
+                        '{1 + ${new Random().nextInt(10 - 1)}{קניות',
+                        100 + new Random().nextInt(100 - 10),
                         new DateTime(
                             2020 + new Random().nextInt(2023 - 2020),
                             1 + new Random().nextInt(12 - 1),

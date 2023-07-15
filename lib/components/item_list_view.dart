@@ -11,24 +11,22 @@ class ItemListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final list = Provider.of<ItemList>(context);
-    return Flexible(
-      child: Observer(
-        builder: (_) => ListView.builder(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          itemCount: list.visibleItems.length,
-          itemBuilder: (_, index) {
-            final item = list.visibleItems[index];
-            return Observer(
-                builder: (_) => ItemTile(
-                      description: item.description,
-                      amount: item.amount,
-                      date: item.date,
-                      isExpense: item.isExpense,
-                      isPermanent: item.isPermanent,
-                    ));
-          },
-        ),
+    return Observer(
+      builder: (_) => ListView.builder(
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        itemCount: list.searchedItems.length,
+        itemBuilder: (_, index) {
+          final item = list.searchedItems[index];
+          return Observer(
+              builder: (_) => ItemTile(
+                    description: item.description,
+                    amount: item.amount,
+                    date: item.date,
+                    isExpense: item.isExpense,
+                    isPermanent: item.isPermanent,
+                  ));
+        },
       ),
     );
   }

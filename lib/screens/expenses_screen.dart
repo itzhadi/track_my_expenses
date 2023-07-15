@@ -1,6 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:track_my_expenses/components/item_list_view.dart';
 
@@ -17,16 +17,53 @@ class Expenses extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final itemList = Provider.of<ItemList>(context);
-    return Scaffold(
-      backgroundColor: pub_dev,
-      body: Column(
-        children: [
-          Container(
-            color: pub_dev,
-            padding:
-                EdgeInsets.only(top: 50.0, left: 30.0, right: 30.0, bottom: 5),
-            child: Observer(
-              builder: (_) => Column(
+    return Observer(
+      builder: (_) => Scaffold(
+        backgroundColor: pub_dev,
+        appBar: AppBar(
+            title: Visibility(
+              visible: itemList.showSearch,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: CupertinoSearchTextField(
+                  prefixIcon: Icon(Icons.wallet),
+                  onChanged: (value) => itemList.setSerchItem(value),
+                  style: TextStyle(color: Colors.white60, fontSize: 13),
+                  placeholder: 'חפש',
+                  autofocus: true,
+                  itemColor: pub_dev,
+                  // decoration: const InputDecoration(
+                  //   //labelText: 'חפש',
+                  //   //hintText: 'חפש',
+                  //   prefixIcon:
+                  //       Icon(Icons.search, color: Colors.white60),
+                  //   hintStyle: kTextSearch,
+                  // ),
+                ),
+              ),
+            ),
+            backgroundColor: pub_dev,
+            toolbarHeight: 40,
+            leading: Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: IconButton(
+                  onPressed: () {
+                    itemList.toggleShowSearch();
+                  },
+                  splashRadius: 24,
+                  icon: Icon(
+                    Icons.search,
+                    color: Colors.white60,
+                    size: 30,
+                  )),
+            )),
+        body: Column(
+          children: [
+            Container(
+              color: pub_dev,
+              padding:
+                  EdgeInsets.only(top: 3.0, left: 30.0, right: 30.0, bottom: 5),
+              child: Column(
                 children: [
                   HorizontalMonthCalendar(),
                   Column(
@@ -116,41 +153,46 @@ class Expenses extends StatelessWidget {
                           ),
                         ],
                       ),
-                      TextField(
-                        onChanged: (value) => {},
-                        style: TextStyle(color: Colors.white60, fontSize: 10),
-                        decoration: const InputDecoration(
-                          //labelText: 'חפש',
-                          //hintText: 'חפש',
-                          suffixIcon: Icon(Icons.search, color: Colors.white60),
-                          hintStyle: kTextSearch,
-                        ),
-                      ),
+                      // Visibility(
+                      //   visible: itemList.showSearch,
+                      //   child: Padding(
+                      //     padding: const EdgeInsets.only(top: 8.0),
+                      //     child: CupertinoSearchTextField(
+                      //       onChanged: (value) => {},
+                      //       style:
+                      //           TextStyle(color: Colors.white60, fontSize: 15),
+                      //       placeholder: 'חפש',
+                      //       // decoration: const InputDecoration(
+                      //       //   //labelText: 'חפש',
+                      //       //   //hintText: 'חפש',
+                      //       //   prefixIcon:
+                      //       //       Icon(Icons.search, color: Colors.white60),
+                      //       //   hintStyle: kTextSearch,
+                      //       // ),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ],
               ),
             ),
-          ),
-          Expanded(
-            child: Container(
-              child: Column(
-                children: [
-                  ItemListView(),
-                ],
-              ),
-              decoration: BoxDecoration(
-                //border: Border.all(width: 1, color: Colors.white60),
-                color: off_white,
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(25.0),
-                    topLeft: Radius.circular(25.0),
-                    bottomRight: Radius.circular(10.0),
-                    bottomLeft: Radius.circular(10.0)),
+            Expanded(
+              child: Container(
+                child: ItemListView(),
+                decoration: BoxDecoration(
+                  //border: Border.all(width: 1, color: Colors.white60),
+                  color: off_white,
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(25.0),
+                      topLeft: Radius.circular(25.0),
+                      bottomRight: Radius.circular(10.0),
+                      bottomLeft: Radius.circular(10.0)),
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

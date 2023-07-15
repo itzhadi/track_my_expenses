@@ -20,6 +20,28 @@ abstract class _ItemList with Store {
   @observable
   int totalExpenses = 0;
 
+  @observable
+  bool showSearch = false;
+
+  @observable
+  String _searchItem = '';
+
+  @computed
+  ObservableList<ItemModel> get searchedItems {
+    if (_searchItem.isEmpty) {
+      return items;
+    } else {
+      List<ItemModel> itemList = items
+          .where((item) =>
+              item.description!
+                  .toLowerCase()
+                  .contains(_searchItem.toLowerCase()) ||
+              item.amount!.contains(_searchItem))
+          .toList();
+      return ObservableList<ItemModel>.of(itemList);
+    }
+  }
+
   @computed
   ObservableList<ItemModel> get expensesOnly =>
       ObservableList.of(items.where((item) => item.isExpense == true));
@@ -110,5 +132,16 @@ abstract class _ItemList with Store {
       }
       return a.date!.compareTo(b.date!);
     });
+  }
+
+  @action
+  void toggleShowSearch() {
+    showSearch = !showSearch;
+    _searchItem = '';
+  }
+
+  @action
+  void setSerchItem(String text) {
+    _searchItem = text;
   }
 }
