@@ -21,48 +21,84 @@ class Expenses extends StatelessWidget {
       builder: (_) => Scaffold(
         backgroundColor: pub_dev,
         appBar: AppBar(
-            title: Visibility(
-              visible: itemList.showSearch,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: CupertinoSearchTextField(
-                  prefixIcon: Icon(Icons.wallet),
-                  onChanged: (value) => itemList.setSerchItem(value),
-                  style: TextStyle(color: Colors.white60, fontSize: 13),
-                  placeholder: 'חפש',
-                  autofocus: true,
-                  itemColor: pub_dev,
-                  // decoration: const InputDecoration(
-                  //   //labelText: 'חפש',
-                  //   //hintText: 'חפש',
-                  //   prefixIcon:
-                  //       Icon(Icons.search, color: Colors.white60),
-                  //   hintStyle: kTextSearch,
-                  // ),
-                ),
+          title: Visibility(
+            visible: itemList.showSearch,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: CupertinoSearchTextField(
+                prefixIcon: Icon(Icons.wallet),
+                onChanged: (value) => itemList.setSerchItem(value),
+                style: TextStyle(color: Colors.white60, fontSize: 13),
+                placeholder: 'חפש',
+                autofocus: true,
+                itemColor: pub_dev,
               ),
             ),
-            backgroundColor: pub_dev,
-            toolbarHeight: 40,
-            leading: Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: IconButton(
-                  onPressed: () {
-                    itemList.toggleShowSearch();
-                  },
-                  splashRadius: 24,
-                  icon: Icon(
-                    Icons.search,
-                    color: Colors.white60,
-                    size: 30,
-                  )),
-            )),
+          ),
+          backgroundColor: pub_dev,
+          toolbarHeight: 40,
+          leading: Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: IconButton(
+                onPressed: () {
+                  itemList.toggleShowSearch();
+                },
+                splashRadius: 10,
+                icon: Icon(
+                  Icons.search,
+                  color: Colors.white60,
+                  size: 30,
+                )),
+          ),
+          actions: [
+            Visibility(
+              visible: itemList.showActionsBar,
+              child: Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 53.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        splashRadius: 10,
+                        icon: Icon(
+                          Icons.settings,
+                          size: 30,
+                          color: Colors.white60,
+                        ),
+                      ),
+                      IconButton(
+                          onPressed: () {},
+                          splashRadius: 10,
+                          icon: Icon(
+                            Icons.delete_forever,
+                            size: 30,
+                            color: Colors.white60,
+                          )),
+                      IconButton(
+                        onPressed: () {},
+                        splashRadius: 10,
+                        icon: Icon(
+                          Icons.date_range,
+                          size: 30,
+                          color: Colors.white60,
+                        ),
+                      ),
+                      Spacer(),
+                    ],
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
         body: Column(
           children: [
             Container(
               color: pub_dev,
-              padding:
-                  EdgeInsets.only(top: 3.0, left: 30.0, right: 30.0, bottom: 5),
+              padding: EdgeInsets.only(
+                  top: 10.0, left: 30.0, right: 30.0, bottom: 5),
               child: Column(
                 children: [
                   HorizontalMonthCalendar(),

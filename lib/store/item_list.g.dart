@@ -135,6 +135,22 @@ mixin _$ItemList on _ItemList, Store {
     });
   }
 
+  late final _$showActionsBarAtom =
+      Atom(name: '_ItemList.showActionsBar', context: context);
+
+  @override
+  bool get showActionsBar {
+    _$showActionsBarAtom.reportRead();
+    return super.showActionsBar;
+  }
+
+  @override
+  set showActionsBar(bool value) {
+    _$showActionsBarAtom.reportWrite(value, super.showActionsBar, () {
+      super.showActionsBar = value;
+    });
+  }
+
   late final _$_searchItemAtom =
       Atom(name: '_ItemList._searchItem', context: context);
 
@@ -284,6 +300,7 @@ filter: ${filter},
 totalIncomes: ${totalIncomes},
 totalExpenses: ${totalExpenses},
 showSearch: ${showSearch},
+showActionsBar: ${showActionsBar},
 searchedItems: ${searchedItems},
 expensesOnly: ${expensesOnly},
 incomesOnly: ${incomesOnly},

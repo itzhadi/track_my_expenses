@@ -24,6 +24,9 @@ abstract class _ItemList with Store {
   bool showSearch = false;
 
   @observable
+  bool showActionsBar = true;
+
+  @observable
   String _searchItem = '';
 
   @computed
@@ -137,6 +140,7 @@ abstract class _ItemList with Store {
   @action
   void toggleShowSearch() {
     showSearch = !showSearch;
+    showActionsBar = !showActionsBar;
     _searchItem = '';
   }
 
