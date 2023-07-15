@@ -3,6 +3,8 @@ import 'package:getwidget/components/list_tile/gf_list_tile.dart';
 import 'package:intl/intl.dart';
 
 import '../utils/colors.dart';
+import '../utils/constants.dart';
+import '../utils/helper_functions.dart';
 
 class ItemTile extends StatelessWidget {
   ItemTile(
@@ -21,20 +23,37 @@ class ItemTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GFListTile(
-      subTitle: Text(
-        amount!,
-        style: TextStyle(color: Colors.black, fontSize: 13),
+      title: Padding(
+        padding: const EdgeInsets.only(right: 3.0, bottom: 2.0, top: 2.0),
+        child: Text(
+          description!,
+          style: TextStyle(
+              color: isExpense! ? red : green,
+              fontSize: 16,
+              fontFamily: 'Oswald',
+              fontWeight: FontWeight.w800),
+        ),
+      ),
+      subTitle: Padding(
+        padding: const EdgeInsets.only(right: 3.0, bottom: 2.0, top: 2.0),
+        child: Text(
+          HelperFunctions.getNumberFormat(int.parse(amount!)).toString() +
+              ' ' +
+              kNewShekel,
+          style: TextStyle(
+              color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500),
+        ),
       ),
       color: Colors.white70,
-      title: Text(
-        description!,
-        style: TextStyle(color: isExpense! ? red : green, fontSize: 15),
+      description: Padding(
+        padding: const EdgeInsets.only(right: 3.0, bottom: 2.0, top: 2.0),
+        child: Text(
+          HelperFunctions.getDateFormat(date!),
+          style: TextStyle(
+              color: Colors.black, fontSize: 10, fontWeight: FontWeight.w500),
+        ),
       ),
-      description: Text(
-        DateFormat('dd-MM-yyyy').format(date!),
-        style: TextStyle(color: Colors.black, fontSize: 10),
-      ),
-      icon: Icon(Icons.pin_drop, color: Colors.black54),
+      icon: isPermanent! ? Icon(Icons.push_pin, color: Colors.black38) : null,
       //avatar: GFAvatar(size: 25, backgroundColor: green),
     );
   }

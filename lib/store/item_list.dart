@@ -89,6 +89,7 @@ abstract class _ItemList with Store {
     ItemModel item =
         ItemModel(desc, amount.toString(), date, isExpense, isPermanent);
     items.add(item);
+    sortListByPerAndDate();
   }
 
   @action
@@ -98,4 +99,16 @@ abstract class _ItemList with Store {
 
   @action
   void changeFilter(VisibilityFilter filter) => this.filter = filter;
+
+  @action
+  void sortListByPerAndDate() {
+    items.sort((a, b) {
+      if (a.isPermanent && !b.isPermanent) {
+        return -1;
+      } else if (!a.isPermanent && b.isPermanent) {
+        return 1;
+      }
+      return a.date!.compareTo(b.date!);
+    });
+  }
 }

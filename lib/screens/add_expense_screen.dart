@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:track_my_expenses/store/item_list.dart';
@@ -20,7 +22,15 @@ class AddExpense extends StatelessWidget {
             MaterialButton(
                 color: Colors.green,
                 onPressed: () {
-                  list.addItemModel('קניות', 100, DateTime.now(), false, false);
+                  list.addItemModel(
+                      '5קניות',
+                      100,
+                      new DateTime(
+                          2020 + new Random().nextInt(2023 - 2020),
+                          1 + new Random().nextInt(12 - 1),
+                          1 + new Random().nextInt(25 - 1)),
+                      Random().nextBool(),
+                      Random().nextBool());
                 })
           ],
         ),

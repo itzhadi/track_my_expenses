@@ -31,6 +31,9 @@ const kTextExpenseScreenBalance =
 const kTextExpenseScreen1 =
     TextStyle(color: Colors.white60, fontSize: 15, fontFamily: 'SecularOne');
 
+const kTextSearch =
+    TextStyle(color: Colors.white60, fontSize: 10, fontFamily: 'SecularOne');
+
 const kNewShekel = '₪';
 
 const List<Widget> choicesItems = <Widget>[

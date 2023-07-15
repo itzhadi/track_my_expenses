@@ -8,13 +8,11 @@ import '../components/horizontal_month_cal.dart';
 import '../store/item_list.dart';
 import '../utils/colors.dart';
 import '../utils/constants.dart';
+import '../utils/helper_functions.dart';
 
 class Expenses extends StatelessWidget {
   static const String id = 'expense_screen';
   bool vertical = false;
-  NumberFormat myFormat = NumberFormat.decimalPattern('en_us');
-
-  getNumberFormat(int val) => val > 9999 ? myFormat.format(val) : val;
 
   @override
   Widget build(BuildContext context) {
@@ -38,13 +36,16 @@ class Expenses extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            itemList.balance!.isNegative
-                                ? getNumberFormat(itemList.balance!.abs())
+                            itemList.balance.isNegative
+                                ? HelperFunctions.getNumberFormat(
+                                            itemList.balance.abs())
                                         .toString() +
                                     '-'
-                                : getNumberFormat(itemList.balance!).toString(),
+                                : HelperFunctions.getNumberFormat(
+                                        itemList.balance)
+                                    .toString(),
                             style: TextStyle(
-                              color: itemList.balance!.isNegative ? red : green,
+                              color: itemList.balance.isNegative ? red : green,
                               fontSize: 30,
                               fontFamily: 'Caprasimo',
                             ),
@@ -53,7 +54,7 @@ class Expenses extends StatelessWidget {
                             ' ' + kNewShekel,
                             style: TextStyle(
                                 color:
-                                    itemList.balance!.isNegative ? red : green,
+                                    itemList.balance.isNegative ? red : green,
                                 fontSize: 30,
                                 fontFamily: 'Caprasimo',
                                 fontWeight: FontWeight.w600),
@@ -68,7 +69,8 @@ class Expenses extends StatelessWidget {
                             children: [
                               Text('הכנסות', style: kTextExpenseScreen),
                               Text(
-                                  getNumberFormat(itemList.totalIncomes)
+                                  HelperFunctions.getNumberFormat(
+                                          itemList.totalIncomes)
                                       .toString(),
                                   style: kTextExpenseScreen1),
                             ],
@@ -80,13 +82,24 @@ class Expenses extends StatelessWidget {
                                 style: kTextExpenseScreen,
                               ),
                               Text(
-                                getNumberFormat(itemList.totalExpenses)
+                                HelperFunctions.getNumberFormat(
+                                        itemList.totalExpenses)
                                     .toString(),
                                 style: kTextExpenseScreen1,
                               ),
                             ],
                           ),
                         ],
+                      ),
+                      TextField(
+                        onChanged: (value) => {},
+                        style: TextStyle(color: Colors.white60, fontSize: 10),
+                        decoration: const InputDecoration(
+                          //labelText: 'חפש',
+                          //hintText: 'חפש',
+                          suffixIcon: Icon(Icons.search, color: Colors.white60),
+                          hintStyle: kTextSearch,
+                        ),
                       ),
                     ],
                   ),
@@ -96,7 +109,11 @@ class Expenses extends StatelessWidget {
           ),
           Expanded(
             child: Container(
-              child: ItemListView(),
+              child: Column(
+                children: [
+                  ItemListView(),
+                ],
+              ),
               decoration: BoxDecoration(
                 //border: Border.all(width: 1, color: Colors.white60),
                 color: off_white,

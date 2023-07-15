@@ -109,6 +109,9 @@ flutter:
      - family: SecularOne
        fonts:
          - asset: fonts/SecularOne-Regular.ttf
+     - family: Oswald
+       fonts:
+         - asset: fonts/Oswald-Medium.ttf
 
   #         style: italic
   #   - family: Trajan Pro
