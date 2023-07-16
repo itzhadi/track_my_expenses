@@ -22,30 +22,35 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) => Provider<ItemList>(
         create: (_) => ItemList(),
-        child: Scaffold(
-          body: _pageNo[selectedPage],
-          bottomNavigationBar: Container(
-            child: ConvexAppBar(
-              color: Colors.white60,
-              activeColor: Colors.white60,
-              backgroundColor: pub_dev,
-              initialActiveIndex: 1,
-              items: [
-                TabItem(
-                    icon: Icons.add_rounded,
-                    title: 'הוסף',
-                    fontFamily: 'BebasNeue'),
-                TabItem(icon: Icons.home),
-                TabItem(icon: Icons.history, title: 'היסטוריה'),
-                TabItem(icon: Icons.stacked_bar_chart, title: 'סטטיסטיקה')
-              ],
-              onTap: (int i) {
-                setState(
-                  () {
-                    selectedPage = i;
+        child: Container(
+          color: pub_dev,
+          child: SafeArea(
+            child: Scaffold(
+              body: _pageNo[selectedPage],
+              bottomNavigationBar: Container(
+                child: ConvexAppBar(
+                  color: Colors.white60,
+                  activeColor: Colors.white60,
+                  backgroundColor: pub_dev,
+                  initialActiveIndex: 1,
+                  items: [
+                    TabItem(
+                        icon: Icons.add_rounded,
+                        title: 'הוסף',
+                        fontFamily: 'BebasNeue'),
+                    TabItem(icon: Icons.home),
+                    TabItem(icon: Icons.history, title: 'היסטוריה'),
+                    TabItem(icon: Icons.stacked_bar_chart, title: 'סטטיסטיקה')
+                  ],
+                  onTap: (int i) {
+                    setState(
+                      () {
+                        selectedPage = i;
+                      },
+                    );
                   },
-                );
-              },
+                ),
+              ),
             ),
           ),
         ),
