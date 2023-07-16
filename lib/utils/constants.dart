@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+import 'colors.dart';
 
 const kText = TextStyle(
     fontFamily: 'Caprasimo',
@@ -41,6 +42,12 @@ const kNewShekelStyle =
 
 const kNewShekelTileStyle =
     TextStyle(color: Colors.black26, fontSize: 15, fontFamily: 'Caprasimo');
+
+const kTextAlertDialog =
+    TextStyle(color: Colors.white60, fontSize: 18, fontFamily: 'SecularOne');
+
+const kTextAlertDialogTitle =
+    TextStyle(color: red, fontSize: 22, fontFamily: 'SecularOne');
 
 const List<Widget> choicesItems = <Widget>[
   Text('הוצאות'),

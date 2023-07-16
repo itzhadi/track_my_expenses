@@ -123,6 +123,13 @@ abstract class _ItemList with Store {
   }
 
   @action
+  void removeAllItems() {
+    items.clear();
+    calculateExpenses();
+    calculateIncomes();
+  }
+
+  @action
   void changeFilter(VisibilityFilter filter) => this.filter = filter;
 
   @action

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:line_icons/line_icon.dart';
 import 'package:provider/provider.dart';
 import 'package:track_my_expenses/components/item_tile.dart';
 import 'package:track_my_expenses/store/item_list.dart';

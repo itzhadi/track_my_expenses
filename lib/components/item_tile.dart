@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:getwidget/components/list_tile/gf_list_tile.dart';
-import 'package:intl/intl.dart';
 
 import '../utils/colors.dart';
 import '../utils/constants.dart';

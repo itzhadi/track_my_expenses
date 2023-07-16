@@ -1,6 +1,5 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:track_my_expenses/screens/history_screen.dart';
 import 'package:track_my_expenses/store/item_list.dart';
@@ -16,43 +15,42 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int selectedPage = 1;
-  final _pageNo = [AddExpense(), Expenses(), History(), History()];
+  int selectedPage = 0;
+  final _pageNo = [Expenses(), AddExpense(), History(), History()];
 
   @override
-  Widget build(BuildContext context) => Provider<ItemList>(
-        create: (_) => ItemList(),
-        child: Container(
-          color: pub_dev,
-          child: SafeArea(
-            child: Scaffold(
-              body: _pageNo[selectedPage],
-              bottomNavigationBar: Container(
-                child: ConvexAppBar(
-                  color: Colors.white60,
-                  activeColor: Colors.white60,
-                  backgroundColor: pub_dev,
-                  initialActiveIndex: 1,
-                  items: [
-                    TabItem(
-                        icon: Icons.add_rounded,
-                        title: 'הוסף',
-                        fontFamily: 'BebasNeue'),
-                    TabItem(icon: Icons.home),
-                    TabItem(icon: Icons.history, title: 'היסטוריה'),
-                    TabItem(icon: Icons.stacked_bar_chart, title: 'סטטיסטיקה')
-                  ],
-                  onTap: (int i) {
-                    setState(
-                      () {
-                        selectedPage = i;
-                      },
-                    );
-                  },
-                ),
-              ),
-            ),
-          ),
+  Widget build(BuildContext context) {
+    final list = Provider.of<ItemList>(context);
+    return Scaffold(
+      body: _pageNo[selectedPage],
+      bottomNavigationBar: Container(
+        child: ConvexAppBar(
+          color: Colors.white60,
+          activeColor: Colors.white60,
+          top: 0,
+          backgroundColor: main_color,
+          initialActiveIndex: 0,
+          items: [
+            TabItem(icon: Icons.home),
+            TabItem(
+                icon: Icons.add_rounded,
+                title: 'הוסף',
+                fontFamily: 'BebasNeue'),
+            TabItem(icon: Icons.history, title: 'היסטוריה'),
+            TabItem(icon: Icons.stacked_bar_chart, title: 'סטטיסטיקה')
+          ],
+          onTap: (int i) {
+            setState(
+              () {
+                selectedPage = i;
+                if (selectedPage == 0 && list.showSearch) {
+                  list.toggleShowSearch();
+                }
+              },
+            );
+          },
         ),
-      );
+      ),
+    );
+  }
 }

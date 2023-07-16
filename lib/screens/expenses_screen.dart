@@ -4,6 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:track_my_expenses/components/item_list_view.dart';
 
+import '../components/appbar_icons_actions.dart';
 import '../components/horizontal_month_cal.dart';
 import '../store/item_list.dart';
 import '../utils/colors.dart';
@@ -19,7 +20,7 @@ class Expenses extends StatelessWidget {
     final itemList = Provider.of<ItemList>(context);
     return Observer(
       builder: (_) => Scaffold(
-        backgroundColor: pub_dev,
+        backgroundColor: main_color,
         appBar: AppBar(
           title: Visibility(
             visible: itemList.showSearch,
@@ -31,11 +32,11 @@ class Expenses extends StatelessWidget {
                 style: TextStyle(color: Colors.white60, fontSize: 13),
                 placeholder: 'חפש',
                 autofocus: true,
-                itemColor: pub_dev,
+                itemColor: main_color,
               ),
             ),
           ),
-          backgroundColor: pub_dev,
+          backgroundColor: main_color,
           toolbarHeight: 40,
           leading: Padding(
             padding: const EdgeInsets.only(right: 20),
@@ -50,53 +51,12 @@ class Expenses extends StatelessWidget {
                   size: 30,
                 )),
           ),
-          actions: [
-            Visibility(
-              visible: itemList.showActionsBar,
-              child: Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 53.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        splashRadius: 10,
-                        icon: Icon(
-                          Icons.settings,
-                          size: 30,
-                          color: Colors.white60,
-                        ),
-                      ),
-                      IconButton(
-                          onPressed: () {},
-                          splashRadius: 10,
-                          icon: Icon(
-                            Icons.delete_forever,
-                            size: 30,
-                            color: Colors.white60,
-                          )),
-                      IconButton(
-                        onPressed: () {},
-                        splashRadius: 10,
-                        icon: Icon(
-                          Icons.date_range,
-                          size: 30,
-                          color: Colors.white60,
-                        ),
-                      ),
-                      Spacer(),
-                    ],
-                  ),
-                ),
-              ),
-            )
-          ],
+          actions: [AppBarActionsIcons()],
         ),
         body: Column(
           children: [
             Container(
-              color: pub_dev,
+              color: main_color,
               padding: EdgeInsets.only(
                   top: 10.0, left: 30.0, right: 30.0, bottom: 5),
               child: Column(
