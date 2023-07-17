@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:provider/provider.dart';
 
 import '../store/item_list.dart';
@@ -28,17 +29,22 @@ class AppBarActionsIcons extends StatelessWidget {
               IconButton(
                   onPressed: !itemList.items.isEmpty
                       ? () {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialogPopup(
-                                    title: 'למחוק הכל ?',
-                                    message:
-                                        ' בטוח/ה שאת/ה רוצה למחוק את כל ההכנסות וההוצאות של החודש? ',
-                                    onConfirm: () {
-                                      itemList.removeAllItems();
-                                    });
-                              });
+                          showAnimatedDialog(
+                            barrierDismissible: true,
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialogPopup(
+                                  title: 'למחוק הכל ?',
+                                  message:
+                                      ' האם ברצונך למחוק את כל ההכנסות וההוצאות של החודש? ',
+                                  onConfirm: () {
+                                    itemList.removeAllItems();
+                                  });
+                            },
+                            animationType: DialogTransitionType.fadeScale,
+                            curve: Curves.decelerate,
+                            duration: Duration(seconds: 1),
+                          );
                         }
                       : null,
                   splashRadius: 10,

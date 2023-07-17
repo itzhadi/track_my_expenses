@@ -31,7 +31,10 @@ class AlertDialogPopup extends StatelessWidget {
           child: Text(
             'בטל',
             style: TextStyle(
-                fontFamily: 'SecularOne', color: Colors.white60, fontSize: 22),
+                fontFamily: 'SecularOne',
+                color: Colors.white60,
+                fontSize: 18,
+                fontWeight: FontWeight.w400),
           ),
           onPressed: () {
             Navigator.of(context).pop();
@@ -39,12 +42,12 @@ class AlertDialogPopup extends StatelessWidget {
         ),
         TextButton(
           child: Text(
-            'כן',
+            'מחק הכל',
             style: TextStyle(
                 fontFamily: 'SecularOne',
                 color: red,
-                fontSize: 22,
-                fontWeight: FontWeight.bold),
+                fontSize: 18,
+                fontWeight: FontWeight.w500),
           ),
           onPressed: () {
             onConfirm();
