@@ -13,7 +13,6 @@ import '../utils/helper_functions.dart';
 
 class Expenses extends StatelessWidget {
   static const String id = 'expense_screen';
-  bool vertical = false;
 
   @override
   Widget build(BuildContext context) {

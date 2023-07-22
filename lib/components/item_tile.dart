@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:getwidget/components/list_tile/gf_list_tile.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';
 
 import '../store/item_list.dart';
@@ -16,32 +17,39 @@ class ItemTile extends StatelessWidget {
       this.amount,
       this.date,
       this.isExpense,
-      this.isPermanent});
+      this.isPermanent,
+      this.index});
 
   String? description;
   String? amount;
   DateTime? date;
   bool? isExpense;
   bool? isPermanent;
+  int? index;
 
   @override
   Widget build(BuildContext context) {
     final list = Provider.of<ItemList>(context);
     return Slidable(
+      key: UniqueKey(),
       closeOnScroll: true,
       startActionPane: ActionPane(
         motion: StretchMotion(),
-        dismissible: DismissiblePane(onDismissed: () {}),
+        dismissible: DismissiblePane(onDismissed: () {
+          list.removeItem(list.items[index!]);
+        }),
         children: [
           SlidableAction(
             foregroundColor: isPermanent! ? Colors.black : Colors.white,
             backgroundColor: Colors.grey,
-            onPressed: (context) {},
+            onPressed: (context) {
+              list.tooglePinItem(index!);
+            },
             icon: Icons.push_pin,
-            // borderRadius: BorderRadius.only(
-            //   bottomRight: Radius.circular(25),
-            //   topRight: Radius.circular(25),
-            // ),
+            borderRadius: BorderRadius.only(
+              bottomRight: Radius.circular(10),
+              topRight: Radius.circular(10),
+            ),
           ),
           SlidableAction(
             backgroundColor: main_color,
@@ -63,37 +71,20 @@ class ItemTile extends StatelessWidget {
               );
             },
             icon: Icons.edit,
-            // borderRadius: BorderRadius.only(
-            //   topLeft: Radius.circular(25),
-            //   bottomLeft: Radius.circular(25),
-            // ),
           ),
           SlidableAction(
             backgroundColor: red,
-            onPressed: (context) {},
+            onPressed: (context) {
+              list.removeItem(list.items[index!]);
+            },
             icon: Icons.delete,
-            // borderRadius: BorderRadius.only(
-            //   topLeft: Radius.circular(25),
-            //   bottomLeft: Radius.circular(25),
-            //   bottomRight: Radius.circular(25),
-            //   topRight: Radius.circular(25),
-            // ),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10),
+              bottomLeft: Radius.circular(10),
+            ),
           ),
         ],
       ),
-      endActionPane: ActionPane(motion: ScrollMotion(), children: [
-        SlidableAction(
-          backgroundColor: red,
-          onPressed: (context) {},
-          icon: Icons.delete,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(25),
-            bottomLeft: Radius.circular(25),
-            bottomRight: Radius.circular(25),
-            topRight: Radius.circular(25),
-          ),
-        ),
-      ]),
       child: GFListTile(
         title: Padding(
           padding: const EdgeInsets.only(right: 3.0, bottom: 2.0, top: 2.0),

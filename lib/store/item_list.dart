@@ -120,6 +120,7 @@ abstract class _ItemList with Store {
   @action
   void removeItem(ItemModel item) {
     items.removeWhere((x) => x == item);
+    sortListByPerAndDate();
   }
 
   @action
@@ -132,6 +133,7 @@ abstract class _ItemList with Store {
   @action
   void changeFilter(VisibilityFilter filter) => this.filter = filter;
 
+  //ToDo action reaction
   @action
   void sortListByPerAndDate() {
     items.sort((a, b) {
@@ -154,5 +156,11 @@ abstract class _ItemList with Store {
   @action
   void setSerchItem(String text) {
     _searchItem = text;
+  }
+
+  @action
+  void tooglePinItem(int index) {
+    items[index].isPermanent = !items[index].isPermanent;
+    sortListByPerAndDate();
   }
 }

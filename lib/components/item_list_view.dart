@@ -24,6 +24,7 @@ class ItemListView extends StatelessWidget {
                     date: item.date,
                     isExpense: item.isExpense,
                     isPermanent: item.isPermanent,
+                    index: index,
                   ));
         },
       ),

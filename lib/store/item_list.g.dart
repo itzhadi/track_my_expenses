@@ -249,6 +249,17 @@ mixin _$ItemList on _ItemList, Store {
   }
 
   @override
+  void removeAllItems() {
+    final _$actionInfo = _$_ItemListActionController.startAction(
+        name: '_ItemList.removeAllItems');
+    try {
+      return super.removeAllItems();
+    } finally {
+      _$_ItemListActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void changeFilter(VisibilityFilter filter) {
     final _$actionInfo =
         _$_ItemListActionController.startAction(name: '_ItemList.changeFilter');
@@ -287,6 +298,17 @@ mixin _$ItemList on _ItemList, Store {
         _$_ItemListActionController.startAction(name: '_ItemList.setSerchItem');
     try {
       return super.setSerchItem(text);
+    } finally {
+      _$_ItemListActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void tooglePinItem(int index) {
+    final _$actionInfo = _$_ItemListActionController.startAction(
+        name: '_ItemList.tooglePinItem');
+    try {
+      return super.tooglePinItem(index);
     } finally {
       _$_ItemListActionController.endAction(_$actionInfo);
     }
