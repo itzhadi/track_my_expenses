@@ -120,6 +120,7 @@ abstract class _ItemList with Store {
   @action
   void removeItem(ItemModel item) {
     items.removeWhere((x) => x == item);
+    item.isExpense! ? calculateExpenses() : calculateIncomes();
     sortListByPerAndDate();
   }
 
@@ -161,6 +162,17 @@ abstract class _ItemList with Store {
   @action
   void tooglePinItem(int index) {
     items[index].isPermanent = !items[index].isPermanent;
+    sortListByPerAndDate();
+  }
+
+  @action
+  void updateItem(String desc, String amount, DateTime date, int index) {
+    items[index].description = desc;
+    items[index].amount = amount;
+    items[index].date = date;
+
+    items[index].isExpense! ? calculateExpenses() : calculateIncomes();
+
     sortListByPerAndDate();
   }
 }

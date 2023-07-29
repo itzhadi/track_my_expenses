@@ -46,8 +46,11 @@ const kNewShekelTileStyle =
 const kTextAlertDialog =
     TextStyle(color: Colors.white60, fontSize: 18, fontFamily: 'SecularOne');
 
+const kTextAlertEditDialog =
+    TextStyle(color: Colors.white54, fontSize: 17, fontFamily: 'Oswald');
+
 const kTextAlertDialogTitle =
-    TextStyle(color: red, fontSize: 22, fontFamily: 'SecularOne');
+    TextStyle(color: red, fontSize: 22, fontFamily: 'Oswald');
 
 const List<Widget> choicesItems = <Widget>[
   Text('הוצאות'),

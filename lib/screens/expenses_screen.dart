@@ -30,7 +30,7 @@ class Expenses extends StatelessWidget {
                 onChanged: (value) => itemList.setSerchItem(value),
                 style: TextStyle(color: Colors.white60, fontSize: 13),
                 placeholder: 'חפש',
-                autofocus: true,
+                autofocus: false,
                 itemColor: main_color,
               ),
             ),

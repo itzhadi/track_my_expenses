@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:getwidget/components/list_tile/gf_list_tile.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';
 
 import '../store/item_list.dart';
 import '../utils/colors.dart';
 import '../utils/constants.dart';
 import '../utils/helper_functions.dart';
-import 'alert_dialog.dart';
+import 'edit_dialog.dart';
 
 class ItemTile extends StatelessWidget {
   ItemTile(
@@ -35,17 +34,20 @@ class ItemTile extends StatelessWidget {
       closeOnScroll: true,
       startActionPane: ActionPane(
         motion: StretchMotion(),
-        dismissible: DismissiblePane(onDismissed: () {
-          list.removeItem(list.items[index!]);
-        }),
+        dragDismissible: true,
+        dismissible: DismissiblePane(
+          resizeDuration: Duration(microseconds: 10),
+          onDismissed: () {
+            list.removeItem(list.items[index!]);
+          },
+        ),
         children: [
           SlidableAction(
-            foregroundColor: isPermanent! ? Colors.black : Colors.white,
-            backgroundColor: Colors.grey,
+            backgroundColor: red,
             onPressed: (context) {
-              list.tooglePinItem(index!);
+              list.removeItem(list.items[index!]);
             },
-            icon: Icons.push_pin,
+            icon: Icons.delete,
             borderRadius: BorderRadius.only(
               bottomRight: Radius.circular(10),
               topRight: Radius.circular(10),
@@ -58,11 +60,11 @@ class ItemTile extends StatelessWidget {
                 barrierDismissible: true,
                 context: context,
                 builder: (BuildContext context) {
-                  return AlertDialogPopup(
-                      title: description!,
-                      message: '$amount  $date',
-                      onConfirm: () {
-                        print('hello');
+                  return EditPopup(
+                      index: index!,
+                      item: list.items[index!],
+                      updateItem: (desc, amount, date) {
+                        list.updateItem(desc, amount, date, index!);
                       });
                 },
                 animationType: DialogTransitionType.fadeScale,
@@ -73,11 +75,12 @@ class ItemTile extends StatelessWidget {
             icon: Icons.edit,
           ),
           SlidableAction(
-            backgroundColor: red,
+            foregroundColor: isPermanent! ? Colors.black : Colors.white,
+            backgroundColor: Colors.grey,
             onPressed: (context) {
-              list.removeItem(list.items[index!]);
+              list.tooglePinItem(index!);
             },
-            icon: Icons.delete,
+            icon: Icons.push_pin,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(10),
               bottomLeft: Radius.circular(10),
@@ -86,6 +89,23 @@ class ItemTile extends StatelessWidget {
         ],
       ),
       child: GFListTile(
+        onTap: () {
+          showAnimatedDialog(
+            barrierDismissible: true,
+            context: context,
+            builder: (BuildContext context) {
+              return EditPopup(
+                  index: index!,
+                  item: list.items[index!],
+                  updateItem: (desc, amount, date) {
+                    list.updateItem(desc, amount, date, index!);
+                  });
+            },
+            animationType: DialogTransitionType.fadeScale,
+            curve: Curves.decelerate,
+            duration: Duration(seconds: 1),
+          );
+        },
         title: Padding(
           padding: const EdgeInsets.only(right: 3.0, bottom: 2.0, top: 2.0),
           child: Text(
