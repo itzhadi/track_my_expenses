@@ -26,12 +26,11 @@ class AddExpense extends StatelessWidget {
                     list.addItemModel(
                         '${new Random().nextInt(10 - 1)}קניות',
                         100 + new Random().nextInt(100 - 10),
-                        new DateTime(
-                            2020 + new Random().nextInt(2023 - 2020),
-                            1 + new Random().nextInt(12 - 1),
-                            1 + new Random().nextInt(25 - 1)),
+                        new DateTime(DateTime.now().year, DateTime.now().month,
+                            1 + new Random().nextInt(29 - 1)),
                         false,
-                        Random().nextBool());
+                        Random().nextBool(),
+                        UniqueKey());
                   }),
               MaterialButton(
                   color: Colors.red,
@@ -39,12 +38,11 @@ class AddExpense extends StatelessWidget {
                     list.addItemModel(
                         '${new Random().nextInt(10 - 1)}קניות',
                         100 + new Random().nextInt(100 - 10),
-                        new DateTime(
-                            2020 + new Random().nextInt(2023 - 2020),
-                            1 + new Random().nextInt(12 - 1),
-                            1 + new Random().nextInt(25 - 1)),
+                        new DateTime(DateTime.now().year, DateTime.now().month,
+                            1 + new Random().nextInt(29 - 1)),
                         true,
-                        Random().nextBool());
+                        Random().nextBool(),
+                        UniqueKey());
                   })
             ],
           ),

@@ -87,6 +87,21 @@ mixin _$ItemModel on _ItemModel, Store {
     });
   }
 
+  late final _$keyAtom = Atom(name: '_ItemModel.key', context: context);
+
+  @override
+  Key? get key {
+    _$keyAtom.reportRead();
+    return super.key;
+  }
+
+  @override
+  set key(Key? value) {
+    _$keyAtom.reportWrite(value, super.key, () {
+      super.key = value;
+    });
+  }
+
   @override
   String toString() {
     return '''
@@ -94,7 +109,8 @@ description: ${description},
 amount: ${amount},
 date: ${date},
 isExpense: ${isExpense},
-isPermanent: ${isPermanent}
+isPermanent: ${isPermanent},
+key: ${key}
     ''';
   }
 }

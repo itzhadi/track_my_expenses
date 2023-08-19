@@ -259,11 +259,12 @@ mixin _$ItemList on _ItemList, Store {
 
   @override
   void addItemModel(String desc, int amount, DateTime date, bool isExpense,
-      bool isPermanent) {
+      bool isPermanent, Key key) {
     final _$actionInfo =
         _$_ItemListActionController.startAction(name: '_ItemList.addItemModel');
     try {
-      return super.addItemModel(desc, amount, date, isExpense, isPermanent);
+      return super
+          .addItemModel(desc, amount, date, isExpense, isPermanent, key);
     } finally {
       _$_ItemListActionController.endAction(_$actionInfo);
     }
@@ -347,22 +348,22 @@ mixin _$ItemList on _ItemList, Store {
   }
 
   @override
-  void tooglePinItem(int index) {
+  void tooglePinItem(Key key) {
     final _$actionInfo = _$_ItemListActionController.startAction(
         name: '_ItemList.tooglePinItem');
     try {
-      return super.tooglePinItem(index);
+      return super.tooglePinItem(key);
     } finally {
       _$_ItemListActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void updateItem(String desc, String amount, DateTime date, int index) {
+  void updateItem(String desc, String amount, DateTime date, Key key) {
     final _$actionInfo =
         _$_ItemListActionController.startAction(name: '_ItemList.updateItem');
     try {
-      return super.updateItem(desc, amount, date, index);
+      return super.updateItem(desc, amount, date, key);
     } finally {
       _$_ItemListActionController.endAction(_$actionInfo);
     }

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +21,7 @@ class ItemListView extends StatelessWidget {
           final item = list.searchedItems[index];
           return Observer(
               builder: (_) => ItemTile(
+                    key: item.key,
                     description: item.description,
                     amount: item.amount,
                     date: item.date,

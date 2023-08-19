@@ -17,7 +17,8 @@ class ItemTile extends StatelessWidget {
       this.date,
       this.isExpense,
       this.isPermanent,
-      this.index});
+      this.index,
+      this.key});
 
   String? description;
   String? amount;
@@ -25,6 +26,7 @@ class ItemTile extends StatelessWidget {
   bool? isExpense;
   bool? isPermanent;
   int? index;
+  Key? key;
 
   @override
   Widget build(BuildContext context) {
@@ -38,14 +40,14 @@ class ItemTile extends StatelessWidget {
         dismissible: DismissiblePane(
           resizeDuration: Duration(microseconds: 10),
           onDismissed: () {
-            list.removeItem(list.items[index!]);
+            list.removeItem(list.getItemByKey(this.key!));
           },
         ),
         children: [
           SlidableAction(
             backgroundColor: red,
             onPressed: (context) {
-              list.removeItem(list.items[index!]);
+              list.removeItem(list.getItemByKey(this.key!));
             },
             icon: Icons.delete,
             borderRadius: BorderRadius.only(
@@ -62,9 +64,9 @@ class ItemTile extends StatelessWidget {
                 builder: (BuildContext context) {
                   return EditPopup(
                       index: index!,
-                      item: list.items[index!],
+                      item: list.getItemByKey(this.key!),
                       updateItem: (desc, amount, date) {
-                        list.updateItem(desc, amount, date, index!);
+                        list.updateItem(desc, amount, date, this.key!);
                       });
                 },
                 animationType: DialogTransitionType.fadeScale,
@@ -78,7 +80,7 @@ class ItemTile extends StatelessWidget {
             foregroundColor: isPermanent! ? Colors.black : Colors.white,
             backgroundColor: Colors.grey,
             onPressed: (context) {
-              list.tooglePinItem(index!);
+              list.tooglePinItem(this.key!);
             },
             icon: Icons.push_pin,
             borderRadius: BorderRadius.only(
@@ -96,9 +98,9 @@ class ItemTile extends StatelessWidget {
             builder: (BuildContext context) {
               return EditPopup(
                   index: index!,
-                  item: list.items[index!],
+                  item: list.getItemByKey(this.key!),
                   updateItem: (desc, amount, date) {
-                    list.updateItem(desc, amount, date, index!);
+                    list.updateItem(desc, amount, date, this.key!);
                   });
             },
             animationType: DialogTransitionType.fadeScale,

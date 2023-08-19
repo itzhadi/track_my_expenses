@@ -1,6 +1,9 @@
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
+import 'package:provider/provider.dart';
+
+import '../store/item_list.dart';
 
 class HorizontalMonthCalendar extends StatefulWidget {
   @override
@@ -13,6 +16,7 @@ class _HorizontalMonthCalendarState extends State<HorizontalMonthCalendar> {
 
   @override
   Widget build(BuildContext context) {
+    final list = Provider.of<ItemList>(context);
     return Container(
       child: Padding(
         padding: const EdgeInsets.only(right: 20.0, left: 20.0, bottom: 15.0),

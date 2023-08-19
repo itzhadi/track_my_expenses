@@ -122,10 +122,10 @@ abstract class _ItemList with Store {
 
   @action
   void addItemModel(String desc, int amount, DateTime date, bool isExpense,
-      bool isPermanent) {
+      bool isPermanent, Key key) {
     isExpense ? totalExpenses += amount : totalIncomes += amount;
     ItemModel item =
-        ItemModel(desc, amount.toString(), date, isExpense, isPermanent);
+        ItemModel(desc, amount.toString(), date, isExpense, isPermanent, key);
     items.add(item);
     sortListByPerAndDate();
   }
@@ -180,19 +180,23 @@ abstract class _ItemList with Store {
   }
 
   @action
-  void tooglePinItem(int index) {
-    items[index].isPermanent = !items[index].isPermanent;
+  void tooglePinItem(Key key) {
+    ItemModel item = getItemByKey(key);
+    item.isPermanent = !item.isPermanent;
     sortListByPerAndDate();
   }
 
   @action
-  void updateItem(String desc, String amount, DateTime date, int index) {
-    items[index].description = desc;
-    items[index].amount = amount;
-    items[index].date = date;
-
-    items[index].isExpense! ? calculateExpenses() : calculateIncomes();
+  void updateItem(String desc, String amount, DateTime date, Key key) {
+    ItemModel item = getItemByKey(key);
+    item.description = desc;
+    item.amount = amount;
+    item.date = date;
+    item.isExpense! ? calculateExpenses() : calculateIncomes();
 
     sortListByPerAndDate();
   }
+
+  ItemModel getItemByKey(Key key) =>
+      items.firstWhere((item) => item.key == key);
 }
