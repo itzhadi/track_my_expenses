@@ -1,5 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:track_my_expenses/store/item_model.dart';
+
+import '../utils/helper_functions.dart';
 
 part 'item_list.g.dart';
 
@@ -174,5 +177,16 @@ abstract class _ItemList with Store {
     items[index].isExpense! ? calculateExpenses() : calculateIncomes();
 
     sortListByPerAndDate();
+  }
+
+  @action
+  void filterByDate(DateTimeRange result) {
+    DateTime startDate = result.start;
+    DateTime endDate = result.end;
+    print(startDate.toString());
+    print(endDate.toString());
+
+    items.where((item) =>
+        item.date!.isAfter(startDate) && item.date!.isBefore(endDate));
   }
 }
