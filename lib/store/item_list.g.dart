@@ -151,6 +151,38 @@ mixin _$ItemList on _ItemList, Store {
     });
   }
 
+  late final _$_startDateAtom =
+      Atom(name: '_ItemList._startDate', context: context);
+
+  @override
+  DateTime? get _startDate {
+    _$_startDateAtom.reportRead();
+    return super._startDate;
+  }
+
+  @override
+  set _startDate(DateTime? value) {
+    _$_startDateAtom.reportWrite(value, super._startDate, () {
+      super._startDate = value;
+    });
+  }
+
+  late final _$_endDateAtom =
+      Atom(name: '_ItemList._endDate', context: context);
+
+  @override
+  DateTime? get _endDate {
+    _$_endDateAtom.reportRead();
+    return super._endDate;
+  }
+
+  @override
+  set _endDate(DateTime? value) {
+    _$_endDateAtom.reportWrite(value, super._endDate, () {
+      super._endDate = value;
+    });
+  }
+
   late final _$_searchItemAtom =
       Atom(name: '_ItemList._searchItem', context: context);
 
@@ -304,11 +336,33 @@ mixin _$ItemList on _ItemList, Store {
   }
 
   @override
+  void setStartEndDate(DateTimeRange result) {
+    final _$actionInfo = _$_ItemListActionController.startAction(
+        name: '_ItemList.setStartEndDate');
+    try {
+      return super.setStartEndDate(result);
+    } finally {
+      _$_ItemListActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void tooglePinItem(int index) {
     final _$actionInfo = _$_ItemListActionController.startAction(
         name: '_ItemList.tooglePinItem');
     try {
       return super.tooglePinItem(index);
+    } finally {
+      _$_ItemListActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void updateItem(String desc, String amount, DateTime date, int index) {
+    final _$actionInfo =
+        _$_ItemListActionController.startAction(name: '_ItemList.updateItem');
+    try {
+      return super.updateItem(desc, amount, date, index);
     } finally {
       _$_ItemListActionController.endAction(_$actionInfo);
     }

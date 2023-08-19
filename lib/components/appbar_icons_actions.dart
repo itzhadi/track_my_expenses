@@ -13,7 +13,7 @@ class AppBarActionsIcons extends StatelessWidget {
     Future<DateTimeRange?> selectDate(BuildContext context) async {
       final DateTimeRange? result = await showDateRangePicker(
           context: context,
-          firstDate: DateTime(2000),
+          firstDate: DateTime(DateTime.now().year, DateTime.now().month, 1),
           lastDate: DateTime.now(),
           currentDate: DateTime.now(),
           locale:
@@ -32,7 +32,7 @@ class AppBarActionsIcons extends StatelessWidget {
           });
 
       if (result != null) {
-        itemList.filterByDate(result);
+        itemList.setStartEndDate(result);
       }
     }
 

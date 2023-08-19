@@ -30,20 +30,30 @@ abstract class _ItemList with Store {
   bool showActionsBar = true;
 
   @observable
+  DateTime? _startDate;
+
+  @observable
+  DateTime? _endDate;
+
+  @observable
   String _searchItem = '';
 
   @computed
   ObservableList<ItemModel> get searchedItems {
-    if (_searchItem.isEmpty) {
+    if (_searchItem.isEmpty && (_endDate == null && _startDate == null)) {
       return items;
     } else {
       List<ItemModel> itemList = items
           .where((item) =>
-              item.description!
-                  .toLowerCase()
-                  .contains(_searchItem.toLowerCase()) ||
-              item.amount!.contains(_searchItem))
+              (_searchItem.isEmpty ||
+                  item.description!
+                      .toLowerCase()
+                      .contains(_searchItem.toLowerCase()) ||
+                  item.amount!.contains(_searchItem)) &&
+              ((_startDate == null || item.date!.isAfter(_startDate!)) &&
+                  (_endDate == null || item.date!.isBefore(_endDate!))))
           .toList();
+
       return ObservableList<ItemModel>.of(itemList);
     }
   }
@@ -130,6 +140,7 @@ abstract class _ItemList with Store {
   @action
   void removeAllItems() {
     items.clear();
+    setStartEndDate(DateTimeRange(start: DateTime(1900), end: DateTime(1900)));
     calculateExpenses();
     calculateIncomes();
   }
@@ -163,6 +174,12 @@ abstract class _ItemList with Store {
   }
 
   @action
+  void setStartEndDate(DateTimeRange result) {
+    _startDate = result.start.isAfter(DateTime(1900)) ? result.start : null;
+    _endDate = result.end.isAfter(DateTime(1900)) ? result.end : null;
+  }
+
+  @action
   void tooglePinItem(int index) {
     items[index].isPermanent = !items[index].isPermanent;
     sortListByPerAndDate();
@@ -177,16 +194,5 @@ abstract class _ItemList with Store {
     items[index].isExpense! ? calculateExpenses() : calculateIncomes();
 
     sortListByPerAndDate();
-  }
-
-  @action
-  void filterByDate(DateTimeRange result) {
-    DateTime startDate = result.start;
-    DateTime endDate = result.end;
-    print(startDate.toString());
-    print(endDate.toString());
-
-    items.where((item) =>
-        item.date!.isAfter(startDate) && item.date!.isBefore(endDate));
   }
 }
