@@ -45,7 +45,10 @@ class AppBarActionsIcons extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  itemList.setStartEndDate(DateTimeRange(
+                      start: DateTime(1900), end: DateTime(1900)));
+                },
                 splashRadius: 10,
                 icon: Icon(
                   Icons.settings,

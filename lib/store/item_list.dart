@@ -50,8 +50,12 @@ abstract class _ItemList with Store {
                       .toLowerCase()
                       .contains(_searchItem.toLowerCase()) ||
                   item.amount!.contains(_searchItem)) &&
-              ((_startDate == null || item.date!.isAfter(_startDate!)) &&
-                  (_endDate == null || item.date!.isBefore(_endDate!))))
+              ((_startDate == null ||
+                      item.date!.isAfter(_startDate!) ||
+                      item.date!.isAtSameMomentAs(_startDate!)) &&
+                  (_endDate == null ||
+                      item.date!.isBefore(_endDate!) ||
+                      item.date!.isAtSameMomentAs(_endDate!))))
           .toList();
 
       return ObservableList<ItemModel>.of(itemList);
