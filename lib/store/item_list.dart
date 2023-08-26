@@ -38,6 +38,9 @@ abstract class _ItemList with Store {
   @observable
   String _searchItem = '';
 
+  @observable
+  bool _showDateRange = false;
+
   @computed
   ObservableList<ItemModel> get searchedItems {
     if (_searchItem.isEmpty && (_endDate == null && _startDate == null)) {
@@ -173,6 +176,13 @@ abstract class _ItemList with Store {
   }
 
   @action
+  void toggleShowDateRange(bool isToshowDateRange) {
+    _showDateRange = isToshowDateRange;
+  }
+
+  bool? get getShowDateRange => _showDateRange;
+
+  @action
   void setSerchItem(String text) {
     _searchItem = text;
   }
@@ -181,6 +191,8 @@ abstract class _ItemList with Store {
   void setStartEndDate(DateTimeRange result) {
     _startDate = result.start.isAfter(DateTime(1900)) ? result.start : null;
     _endDate = result.end.isAfter(DateTime(1900)) ? result.end : null;
+    calculateExpenses();
+    calculateIncomes();
   }
 
   @action
@@ -203,4 +215,12 @@ abstract class _ItemList with Store {
 
   ItemModel getItemByKey(Key key) =>
       items.firstWhere((item) => item.key == key);
+
+  String? get dayEndDate => _endDate != null
+      ? _endDate?.day?.toString()
+      : DateTime(1900).day.toString();
+
+  String? get dayStartDate => _startDate != null
+      ? _startDate?.day?.toString()
+      : DateTime(1900).day.toString();
 }

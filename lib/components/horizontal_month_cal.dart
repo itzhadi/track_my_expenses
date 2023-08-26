@@ -19,7 +19,7 @@ class _HorizontalMonthCalendarState extends State<HorizontalMonthCalendar> {
     final list = Provider.of<ItemList>(context);
     return Container(
       child: Padding(
-        padding: const EdgeInsets.only(right: 20.0, left: 20.0, bottom: 15.0),
+        padding: const EdgeInsets.only(right: 20.0, left: 20.0, bottom: 10.0),
         child: CalendarCarousel<Event>(
           customDayBuilder: null,
           daysHaveCircularBorder: false,

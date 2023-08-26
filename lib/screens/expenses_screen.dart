@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:track_my_expenses/components/item_list_view.dart';
 
 import '../components/appbar_icons_actions.dart';
+import '../components/between_dates_box.dart';
 import '../components/horizontal_month_cal.dart';
 import '../store/item_list.dart';
 import '../utils/colors.dart';
@@ -121,6 +122,9 @@ class Expenses extends StatelessWidget {
                               ),
                             ],
                           ),
+                          BetweenDatesBox(
+                              startDate: itemList.dayStartDate!,
+                              endDate: itemList.dayEndDate!),
                           Column(
                             children: [
                               Text(
@@ -148,25 +152,6 @@ class Expenses extends StatelessWidget {
                           ),
                         ],
                       ),
-                      // Visibility(
-                      //   visible: itemList.showSearch,
-                      //   child: Padding(
-                      //     padding: const EdgeInsets.only(top: 8.0),
-                      //     child: CupertinoSearchTextField(
-                      //       onChanged: (value) => {},
-                      //       style:
-                      //           TextStyle(color: Colors.white60, fontSize: 15),
-                      //       placeholder: 'חפש',
-                      //       // decoration: const InputDecoration(
-                      //       //   //labelText: 'חפש',
-                      //       //   //hintText: 'חפש',
-                      //       //   prefixIcon:
-                      //       //       Icon(Icons.search, color: Colors.white60),
-                      //       //   hintStyle: kTextSearch,
-                      //       // ),
-                      //     ),
-                      //   ),
-                      // ),
                     ],
                   ),
                 ],
@@ -176,7 +161,6 @@ class Expenses extends StatelessWidget {
               child: Container(
                 child: ItemListView(),
                 decoration: BoxDecoration(
-                  //border: Border.all(width: 1, color: Colors.white60),
                   color: off_white,
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(25.0),

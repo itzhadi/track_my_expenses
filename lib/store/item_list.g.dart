@@ -199,6 +199,22 @@ mixin _$ItemList on _ItemList, Store {
     });
   }
 
+  late final _$_showDateRangeAtom =
+      Atom(name: '_ItemList._showDateRange', context: context);
+
+  @override
+  bool get _showDateRange {
+    _$_showDateRangeAtom.reportRead();
+    return super._showDateRange;
+  }
+
+  @override
+  set _showDateRange(bool value) {
+    _$_showDateRangeAtom.reportWrite(value, super._showDateRange, () {
+      super._showDateRange = value;
+    });
+  }
+
   late final _$_ItemListActionController =
       ActionController(name: '_ItemList', context: context);
 
@@ -320,6 +336,17 @@ mixin _$ItemList on _ItemList, Store {
         name: '_ItemList.toggleShowSearch');
     try {
       return super.toggleShowSearch();
+    } finally {
+      _$_ItemListActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void toggleShowDateRange(bool isToshowDateRange) {
+    final _$actionInfo = _$_ItemListActionController.startAction(
+        name: '_ItemList.toggleShowDateRange');
+    try {
+      return super.toggleShowDateRange(isToshowDateRange);
     } finally {
       _$_ItemListActionController.endAction(_$actionInfo);
     }

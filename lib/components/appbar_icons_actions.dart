@@ -32,6 +32,7 @@ class AppBarActionsIcons extends StatelessWidget {
           });
 
       if (result != null) {
+        itemList.toggleShowDateRange(true);
         itemList.setStartEndDate(result);
       }
     }

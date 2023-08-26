@@ -52,6 +52,9 @@ const kTextAlertEditDialog =
 const kTextAlertDialogTitle =
     TextStyle(color: red, fontSize: 22, fontFamily: 'Oswald');
 
+const kDate =
+    TextStyle(color: Colors.white60, fontSize: 13, fontFamily: 'Caprasimo');
+
 const List<Widget> choicesItems = <Widget>[
   Text('הוצאות'),
   Text('הכל'),
