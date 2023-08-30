@@ -18,6 +18,13 @@ class BetweenDatesBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final itemList = Provider.of<ItemList>(context);
+
+    resetDates() {
+      itemList.toggleShowDateRange(false);
+      itemList.setStartEndDate(
+          DateTimeRange(start: DateTime(1900), end: DateTime(1900)));
+    }
+
     return AnimatedSwitcher(
       duration: Duration(seconds: 1),
       transitionBuilder: (child, animation) {
@@ -27,54 +34,57 @@ class BetweenDatesBox extends StatelessWidget {
         );
       },
       child: itemList.getShowDateRange!
-          ? Container(
-              width: 100,
-              height: 45,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.white70, // Border color
-                  width: 0.20,
+          ? InkWell(
+              onTap: () {
+                resetDates();
+              },
+              child: Container(
+                width: 100,
+                height: 45,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.white70, // Border color
+                    width: 0.20,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Padding(
-                padding:
-                    const EdgeInsets.only(right: 8.0, left: 8.0, bottom: 5.0),
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.restart_alt_outlined,
-                          color: Colors.white60,
-                          size: 12,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.only(right: 8.0, left: 8.0, bottom: 5.0),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.restart_alt_outlined,
+                            color: Colors.white60,
+                            size: 17,
+                          ),
+                          onPressed: () {
+                            resetDates();
+                          },
                         ),
-                        onPressed: () {
-                          itemList.toggleShowDateRange(false);
-                          itemList.setStartEndDate(DateTimeRange(
-                              start: DateTime(1900), end: DateTime(1900)));
-                        },
                       ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          HelperFunctions.getZeroChain(endDate!),
-                          style: kDate,
-                        ),
-                        Text(
-                          ' - ',
-                          style: kDate,
-                        ),
-                        Text(
-                          HelperFunctions.getZeroChain(startDate!),
-                          style: kDate,
-                        ),
-                      ],
-                    ),
-                  ],
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            HelperFunctions.getZeroChain(endDate!),
+                            style: kDate,
+                          ),
+                          Text(
+                            ' - ',
+                            style: kDate,
+                          ),
+                          Text(
+                            HelperFunctions.getZeroChain(startDate!),
+                            style: kDate,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             )

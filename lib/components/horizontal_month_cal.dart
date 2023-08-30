@@ -19,7 +19,7 @@ class _HorizontalMonthCalendarState extends State<HorizontalMonthCalendar> {
     final list = Provider.of<ItemList>(context);
     return Container(
       child: Padding(
-        padding: const EdgeInsets.only(right: 20.0, left: 20.0, bottom: 10.0),
+        padding: const EdgeInsets.only(right: 20.0, left: 20.0, bottom: 3),
         child: CalendarCarousel<Event>(
           customDayBuilder: null,
           daysHaveCircularBorder: false,
@@ -32,7 +32,9 @@ class _HorizontalMonthCalendarState extends State<HorizontalMonthCalendar> {
           showOnlyCurrentMonthDate: true,
           iconColor: Colors.white60,
           markedDateIconBorderColor: Colors.black,
-          onCalendarChanged: (date) {},
+          onCalendarChanged: (date) {
+            list.setCurrentMonth(date);
+          },
           thisMonthDayBorderColor: Colors.grey,
           height: 48.0,
           disableDayPressed: true,

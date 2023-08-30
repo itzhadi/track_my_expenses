@@ -44,7 +44,7 @@ const kNewShekelTileStyle =
     TextStyle(color: Colors.black26, fontSize: 15, fontFamily: 'Caprasimo');
 
 const kTextAlertDialog =
-    TextStyle(color: Colors.white60, fontSize: 18, fontFamily: 'SecularOne');
+    TextStyle(color: Colors.white60, fontSize: 17, fontFamily: 'SecularOne');
 
 const kTextAlertEditDialog =
     TextStyle(color: Colors.white54, fontSize: 17, fontFamily: 'Oswald');

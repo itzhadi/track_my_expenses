@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mobx/mobx.dart';
 import 'package:track_my_expenses/store/item_model.dart';
 
@@ -41,6 +42,9 @@ abstract class _ItemList with Store {
   @observable
   bool _showDateRange = false;
 
+  @observable
+  String _currentMonth = '';
+
   @computed
   ObservableList<ItemModel> get searchedItems {
     if (_searchItem.isEmpty && (_endDate == null && _startDate == null)) {
@@ -61,6 +65,9 @@ abstract class _ItemList with Store {
                       item.date!.isAtSameMomentAs(_endDate!))))
           .toList();
 
+      // if (_endDate != null && _startDate != null) {
+      //   calculateExpensesAfterDateRange(itemList);
+      // }
       return ObservableList<ItemModel>.of(itemList);
     }
   }
@@ -188,11 +195,17 @@ abstract class _ItemList with Store {
   }
 
   @action
+  void setCurrentMonth(DateTime currentDate) {
+    _currentMonth = getMontheName(currentDate.month);
+  }
+
+  @action
+  get getCurrentMonthName => _currentMonth;
+
+  @action
   void setStartEndDate(DateTimeRange result) {
     _startDate = result.start.isAfter(DateTime(1900)) ? result.start : null;
     _endDate = result.end.isAfter(DateTime(1900)) ? result.end : null;
-    calculateExpenses();
-    calculateIncomes();
   }
 
   @action
@@ -223,4 +236,23 @@ abstract class _ItemList with Store {
   String? get dayStartDate => _startDate != null
       ? _startDate?.day?.toString()
       : DateTime(1900).day.toString();
+
+  ObservableList<ItemModel> getExpenses(List<ItemModel> itemList) =>
+      ObservableList.of(itemList.where((item) => item.isExpense == true));
+
+  @action
+  void calculateExpensesAfterDateRange(List<ItemModel> itemList) {
+    int sum = 0;
+    Iterable<ItemModel> itemListExpense = getExpenses(itemList);
+    itemListExpense.forEach((element) {
+      sum += int.parse(element.amount!);
+    });
+    totalExpenses = sum;
+  }
+
+  getMontheName(int monthNumber) {
+    print("getMonthe");
+    DateTime date = DateTime(DateTime.now().year, monthNumber);
+    return DateFormat('MMMM', 'he_IL').format(date);
+  }
 }

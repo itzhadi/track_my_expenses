@@ -215,6 +215,22 @@ mixin _$ItemList on _ItemList, Store {
     });
   }
 
+  late final _$_currentMonthAtom =
+      Atom(name: '_ItemList._currentMonth', context: context);
+
+  @override
+  String get _currentMonth {
+    _$_currentMonthAtom.reportRead();
+    return super._currentMonth;
+  }
+
+  @override
+  set _currentMonth(String value) {
+    _$_currentMonthAtom.reportWrite(value, super._currentMonth, () {
+      super._currentMonth = value;
+    });
+  }
+
   late final _$_ItemListActionController =
       ActionController(name: '_ItemList', context: context);
 
@@ -364,6 +380,17 @@ mixin _$ItemList on _ItemList, Store {
   }
 
   @override
+  void setCurrentMonth(DateTime currentDate) {
+    final _$actionInfo = _$_ItemListActionController.startAction(
+        name: '_ItemList.setCurrentMonth');
+    try {
+      return super.setCurrentMonth(currentDate);
+    } finally {
+      _$_ItemListActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void setStartEndDate(DateTimeRange result) {
     final _$actionInfo = _$_ItemListActionController.startAction(
         name: '_ItemList.setStartEndDate');
@@ -391,6 +418,17 @@ mixin _$ItemList on _ItemList, Store {
         _$_ItemListActionController.startAction(name: '_ItemList.updateItem');
     try {
       return super.updateItem(desc, amount, date, key);
+    } finally {
+      _$_ItemListActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void calculateExpensesAfterDateRange(List<ItemModel> itemList) {
+    final _$actionInfo = _$_ItemListActionController.startAction(
+        name: '_ItemList.calculateExpensesAfterDateRange');
+    try {
+      return super.calculateExpensesAfterDateRange(itemList);
     } finally {
       _$_ItemListActionController.endAction(_$actionInfo);
     }

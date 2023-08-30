@@ -67,14 +67,14 @@ class AppBarActionsIcons extends StatelessWidget {
                               return AlertDialogPopup(
                                   title: 'למחוק הכל ?',
                                   message:
-                                      ' האם ברצונך למחוק את כל ההכנסות וההוצאות של החודש? ',
+                                      " האם ברצונך למחוק את כל ההכנסות וההוצאות של ${itemList.getCurrentMonthName}? ",
                                   onConfirm: () {
                                     itemList.removeAllItems();
                                   });
                             },
                             animationType: DialogTransitionType.fadeScale,
                             curve: Curves.decelerate,
-                            duration: Duration(seconds: 1),
+                            duration: Duration(milliseconds: 600),
                           );
                         }
                       : null,
