@@ -4,7 +4,6 @@ import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:track_my_expenses/screens/history_screen.dart';
 import 'package:track_my_expenses/store/item_list.dart';
-import 'package:track_my_expenses/store/item_model.dart';
 import 'package:track_my_expenses/utils/colors.dart';
 import 'add_expense_screen.dart';
 import 'expenses_screen.dart';
@@ -62,6 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
           onTap: (int i) {
             setState(
               () {
+                list.setCurrentMonth(DateTime.now());
                 selectedPage = i;
                 if (selectedPage == 0 && list.showSearch) {
                   list.toggleShowSearch();

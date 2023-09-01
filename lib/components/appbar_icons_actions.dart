@@ -33,7 +33,7 @@ class AppBarActionsIcons extends StatelessWidget {
 
       if (result != null) {
         itemList.toggleShowDateRange(true);
-        itemList.setStartEndDate(result);
+        itemList.setStartEndDateRange(result);
       }
     }
 
@@ -47,7 +47,7 @@ class AppBarActionsIcons extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: () {
-                  itemList.setStartEndDate(DateTimeRange(
+                  itemList.setStartEndDateRange(DateTimeRange(
                       start: DateTime(1900), end: DateTime(1900)));
                 },
                 splashRadius: 10,

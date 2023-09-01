@@ -21,7 +21,7 @@ class BetweenDatesBox extends StatelessWidget {
 
     resetDates() {
       itemList.toggleShowDateRange(false);
-      itemList.setStartEndDate(
+      itemList.setStartEndDateRange(
           DateTimeRange(start: DateTime(1900), end: DateTime(1900)));
     }
 

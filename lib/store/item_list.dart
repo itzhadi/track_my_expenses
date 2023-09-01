@@ -65,6 +65,7 @@ abstract class _ItemList with Store {
                       item.date!.isAtSameMomentAs(_endDate!))))
           .toList();
 
+      //ToDo
       // if (_endDate != null && _startDate != null) {
       //   calculateExpensesAfterDateRange(itemList);
       // }
@@ -154,7 +155,8 @@ abstract class _ItemList with Store {
   @action
   void removeAllItems() {
     items.clear();
-    setStartEndDate(DateTimeRange(start: DateTime(1900), end: DateTime(1900)));
+    setStartEndDateRange(
+        DateTimeRange(start: DateTime(1900), end: DateTime(1900)));
     calculateExpenses();
     calculateIncomes();
   }
@@ -199,13 +201,18 @@ abstract class _ItemList with Store {
     _currentMonth = getMontheName(currentDate.month);
   }
 
-  @action
   get getCurrentMonthName => _currentMonth;
 
   @action
-  void setStartEndDate(DateTimeRange result) {
+  void setStartEndDateRange(DateTimeRange result) {
     _startDate = result.start.isAfter(DateTime(1900)) ? result.start : null;
     _endDate = result.end.isAfter(DateTime(1900)) ? result.end : null;
+  }
+
+  @action
+  void setStartEndDates(DateTime firstDayOfMonth, DateTime lastDayOfMonth) {
+    _startDate = firstDayOfMonth;
+    _endDate = lastDayOfMonth;
   }
 
   @action

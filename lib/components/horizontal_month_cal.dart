@@ -34,6 +34,9 @@ class _HorizontalMonthCalendarState extends State<HorizontalMonthCalendar> {
           markedDateIconBorderColor: Colors.black,
           onCalendarChanged: (date) {
             list.setCurrentMonth(date);
+            final firstDayOfMonth = DateTime(date.year, date.month, 1);
+            final lastDayOfMonth = DateTime(date.year, date.month + 1, 0);
+            list.setStartEndDates(firstDayOfMonth, lastDayOfMonth);
           },
           thisMonthDayBorderColor: Colors.grey,
           height: 48.0,

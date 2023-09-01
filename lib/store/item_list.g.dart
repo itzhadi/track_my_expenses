@@ -391,11 +391,22 @@ mixin _$ItemList on _ItemList, Store {
   }
 
   @override
-  void setStartEndDate(DateTimeRange result) {
+  void setStartEndDateRange(DateTimeRange result) {
     final _$actionInfo = _$_ItemListActionController.startAction(
-        name: '_ItemList.setStartEndDate');
+        name: '_ItemList.setStartEndDateRange');
     try {
-      return super.setStartEndDate(result);
+      return super.setStartEndDateRange(result);
+    } finally {
+      _$_ItemListActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setStartEndDates(DateTime firstDayOfMonth, DateTime lastDayOfMonth) {
+    final _$actionInfo = _$_ItemListActionController.startAction(
+        name: '_ItemList.setStartEndDates');
+    try {
+      return super.setStartEndDates(firstDayOfMonth, lastDayOfMonth);
     } finally {
       _$_ItemListActionController.endAction(_$actionInfo);
     }
