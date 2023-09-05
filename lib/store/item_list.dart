@@ -12,6 +12,12 @@ enum VisibilityFilter { all, expenses, incomes }
 class ItemList = _ItemList with _$ItemList;
 
 abstract class _ItemList with Store {
+  _ItemList() {
+    reaction((_) => _endDate, (DateTime) {
+      calculateExpensesAndResponsesAfterDateRange();
+    });
+  }
+
   @observable
   ObservableList<ItemModel> items = ObservableList<ItemModel>();
 
@@ -19,10 +25,10 @@ abstract class _ItemList with Store {
   VisibilityFilter filter = VisibilityFilter.all;
 
   @observable
-  int totalIncomes = 0;
+  int _totalIncomes = 0;
 
   @observable
-  int totalExpenses = 0;
+  int _totalExpenses = 0;
 
   @observable
   bool showSearch = false;
@@ -65,13 +71,15 @@ abstract class _ItemList with Store {
                       item.date!.isAtSameMomentAs(_endDate!))))
           .toList();
 
-      //ToDo
-      // if (_endDate != null && _startDate != null) {
-      //   calculateExpensesAfterDateRange(itemList);
-      // }
       return ObservableList<ItemModel>.of(itemList);
     }
   }
+
+  @computed
+  int get getTotalExpenses => _totalExpenses;
+
+  @computed
+  int get getTotalIncomes => _totalIncomes;
 
   @computed
   ObservableList<ItemModel> get expensesOnly =>
@@ -86,6 +94,8 @@ abstract class _ItemList with Store {
 
   @computed
   bool get hasIncomes => incomesOnly.isNotEmpty;
+
+  DateTime? get getEndDate => _endDate;
 
   @computed
   ObservableList<ItemModel> get visibleItems {
@@ -105,7 +115,7 @@ abstract class _ItemList with Store {
     incomesOnly.forEach((element) {
       sum += int.parse(element.amount!);
     });
-    totalIncomes = sum;
+    _totalIncomes = sum;
   }
 
   @action
@@ -114,11 +124,11 @@ abstract class _ItemList with Store {
     expensesOnly.forEach((element) {
       sum += int.parse(element.amount!);
     });
-    totalExpenses = sum;
+    _totalExpenses = sum;
   }
 
   @computed
-  int get balance => totalIncomes - totalExpenses;
+  int get balance => _totalIncomes - _totalExpenses;
 
   @action
   ObservableList<ItemModel> serchedItemListByAmount(int amount) =>
@@ -138,7 +148,7 @@ abstract class _ItemList with Store {
   @action
   void addItemModel(String desc, int amount, DateTime date, bool isExpense,
       bool isPermanent, Key key) {
-    isExpense ? totalExpenses += amount : totalIncomes += amount;
+    isExpense ? _totalExpenses += amount : _totalIncomes += amount;
     ItemModel item =
         ItemModel(desc, amount.toString(), date, isExpense, isPermanent, key);
     items.add(item);
@@ -154,7 +164,8 @@ abstract class _ItemList with Store {
 
   @action
   void removeAllItems() {
-    items.clear();
+    items.removeWhere(
+        (element) => getMontheName(element.date!.month) == _currentMonth);
     setStartEndDateRange(
         DateTimeRange(start: DateTime(1900), end: DateTime(1900)));
     calculateExpenses();
@@ -247,19 +258,55 @@ abstract class _ItemList with Store {
   ObservableList<ItemModel> getExpenses(List<ItemModel> itemList) =>
       ObservableList.of(itemList.where((item) => item.isExpense == true));
 
+  ObservableList<ItemModel> getIncomes(List<ItemModel> itemList) =>
+      ObservableList.of(itemList.where((item) => item.isExpense != true));
+
+  List<ItemModel> getItemListAfterDateRange() {
+    List<ItemModel> itemList = items
+        .where((item) => ((_startDate == null ||
+                item.date!.isAfter(_startDate!) ||
+                item.date!.isAtSameMomentAs(_startDate!)) &&
+            (_endDate == null ||
+                item.date!.isBefore(_endDate!) ||
+                item.date!.isAtSameMomentAs(_endDate!))))
+        .toList();
+
+    return itemList;
+  }
+
   @action
-  void calculateExpensesAfterDateRange(List<ItemModel> itemList) {
-    int sum = 0;
+  void calculateExpensesAndResponsesAfterDateRange() {
+    List<ItemModel> itemList = getItemListAfterDateRange();
     Iterable<ItemModel> itemListExpense = getExpenses(itemList);
+    Iterable<ItemModel> itemListIncomes = getIncomes(itemList);
+    calculateExpensesAfterDateRange(itemListExpense);
+    calculateIncomesAfterDateRange(itemListIncomes);
+  }
+
+  void calculateExpensesAfterDateRange(Iterable<ItemModel> itemListExpense) {
+    int totalExpensesSum = 0;
     itemListExpense.forEach((element) {
-      sum += int.parse(element.amount!);
+      totalExpensesSum += int.parse(element.amount!);
     });
-    totalExpenses = sum;
+    _totalExpenses = totalExpensesSum;
+  }
+
+  void calculateIncomesAfterDateRange(Iterable<ItemModel> itemListIncomes) {
+    int totalIncomeSum = 0;
+    for (var income in itemListIncomes) {
+      totalIncomeSum += int.parse(income.amount!);
+    }
+    _totalIncomes = totalIncomeSum;
   }
 
   getMontheName(int monthNumber) {
-    print("getMonthe");
     DateTime date = DateTime(DateTime.now().year, monthNumber);
     return DateFormat('MMMM', 'he_IL').format(date);
+  }
+
+  late final ReactionDisposer _reactionDisposer;
+
+  void dispose() {
+    _reactionDisposer();
   }
 }

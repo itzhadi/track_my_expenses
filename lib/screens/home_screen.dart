@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final listStor = Provider.of<ItemList>(context);
     _disposers = [
       reaction((_) => listStor.items,
-          (ObservableList) => listStor.sortListByPerAndDate())
+          (ObservableList) => listStor.sortListByPerAndDate()),
     ];
   }
 

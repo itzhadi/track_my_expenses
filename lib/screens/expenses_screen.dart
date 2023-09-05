@@ -110,7 +110,7 @@ class Expenses extends StatelessWidget {
                                     padding: const EdgeInsets.only(right: 4.0),
                                     child: Text(
                                         HelperFunctions.getNumberFormat(
-                                                itemList.totalIncomes)
+                                                itemList.getTotalIncomes)
                                             .toString(),
                                         style: kTextExpenseAndIncomes),
                                   ),
@@ -137,7 +137,7 @@ class Expenses extends StatelessWidget {
                                     padding: const EdgeInsets.only(right: 4.0),
                                     child: Text(
                                       HelperFunctions.getNumberFormat(
-                                              itemList.totalExpenses)
+                                              itemList.getTotalExpenses)
                                           .toString(),
                                       style: kTextExpenseAndIncomes,
                                     ),

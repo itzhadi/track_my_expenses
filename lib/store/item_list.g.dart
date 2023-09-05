@@ -16,6 +16,20 @@ mixin _$ItemList on _ItemList, Store {
           Computed<ObservableList<ItemModel>>(() => super.searchedItems,
               name: '_ItemList.searchedItems'))
       .value;
+  Computed<int>? _$getTotalExpensesComputed;
+
+  @override
+  int get getTotalExpenses => (_$getTotalExpensesComputed ??= Computed<int>(
+          () => super.getTotalExpenses,
+          name: '_ItemList.getTotalExpenses'))
+      .value;
+  Computed<int>? _$getTotalIncomesComputed;
+
+  @override
+  int get getTotalIncomes =>
+      (_$getTotalIncomesComputed ??= Computed<int>(() => super.getTotalIncomes,
+              name: '_ItemList.getTotalIncomes'))
+          .value;
   Computed<ObservableList<ItemModel>>? _$expensesOnlyComputed;
 
   @override
@@ -87,35 +101,35 @@ mixin _$ItemList on _ItemList, Store {
     });
   }
 
-  late final _$totalIncomesAtom =
-      Atom(name: '_ItemList.totalIncomes', context: context);
+  late final _$_totalIncomesAtom =
+      Atom(name: '_ItemList._totalIncomes', context: context);
 
   @override
-  int get totalIncomes {
-    _$totalIncomesAtom.reportRead();
-    return super.totalIncomes;
+  int get _totalIncomes {
+    _$_totalIncomesAtom.reportRead();
+    return super._totalIncomes;
   }
 
   @override
-  set totalIncomes(int value) {
-    _$totalIncomesAtom.reportWrite(value, super.totalIncomes, () {
-      super.totalIncomes = value;
+  set _totalIncomes(int value) {
+    _$_totalIncomesAtom.reportWrite(value, super._totalIncomes, () {
+      super._totalIncomes = value;
     });
   }
 
-  late final _$totalExpensesAtom =
-      Atom(name: '_ItemList.totalExpenses', context: context);
+  late final _$_totalExpensesAtom =
+      Atom(name: '_ItemList._totalExpenses', context: context);
 
   @override
-  int get totalExpenses {
-    _$totalExpensesAtom.reportRead();
-    return super.totalExpenses;
+  int get _totalExpenses {
+    _$_totalExpensesAtom.reportRead();
+    return super._totalExpenses;
   }
 
   @override
-  set totalExpenses(int value) {
-    _$totalExpensesAtom.reportWrite(value, super.totalExpenses, () {
-      super.totalExpenses = value;
+  set _totalExpenses(int value) {
+    _$_totalExpensesAtom.reportWrite(value, super._totalExpenses, () {
+      super._totalExpenses = value;
     });
   }
 
@@ -435,11 +449,11 @@ mixin _$ItemList on _ItemList, Store {
   }
 
   @override
-  void calculateExpensesAfterDateRange(List<ItemModel> itemList) {
+  void calculateExpensesAndResponsesAfterDateRange() {
     final _$actionInfo = _$_ItemListActionController.startAction(
-        name: '_ItemList.calculateExpensesAfterDateRange');
+        name: '_ItemList.calculateExpensesAndResponsesAfterDateRange');
     try {
-      return super.calculateExpensesAfterDateRange(itemList);
+      return super.calculateExpensesAndResponsesAfterDateRange();
     } finally {
       _$_ItemListActionController.endAction(_$actionInfo);
     }
@@ -450,11 +464,11 @@ mixin _$ItemList on _ItemList, Store {
     return '''
 items: ${items},
 filter: ${filter},
-totalIncomes: ${totalIncomes},
-totalExpenses: ${totalExpenses},
 showSearch: ${showSearch},
 showActionsBar: ${showActionsBar},
 searchedItems: ${searchedItems},
+getTotalExpenses: ${getTotalExpenses},
+getTotalIncomes: ${getTotalIncomes},
 expensesOnly: ${expensesOnly},
 incomesOnly: ${incomesOnly},
 hasExpenses: ${hasExpenses},
