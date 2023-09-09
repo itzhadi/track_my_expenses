@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:track_my_expenses/screens/history_screen.dart';
 import 'package:track_my_expenses/store/item_list.dart';
 import 'package:track_my_expenses/utils/colors.dart';
+import '../store/add_expense_store.dart';
 import 'add_expense_screen.dart';
 import 'expenses_screen.dart';
 
@@ -32,7 +33,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _disposers!.forEach((d) => d());
     super.dispose();
   }
@@ -40,7 +40,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final list = Provider.of<ItemList>(context);
+    final addExpenseStore = Provider.of<AddExpensesStore>(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: _pageNo[selectedPage],
       bottomNavigationBar: Container(
         child: ConvexAppBar(
@@ -62,6 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
             setState(
               () {
                 list.setCurrentMonth(DateTime.now());
+                addExpenseStore.initializeValues();
                 selectedPage = i;
                 if (selectedPage == 0 && list.showSearch) {
                   list.toggleShowSearch();

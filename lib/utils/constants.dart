@@ -55,6 +55,12 @@ const kTextAlertDialogTitle =
 const kDate =
     TextStyle(color: Colors.white60, fontSize: 13, fontFamily: 'Caprasimo');
 
+const kToggleButton = TextStyle(
+    color: Colors.white60,
+    fontSize: 17,
+    fontFamily: 'Caprasimo',
+    fontWeight: FontWeight.w700);
+
 const List<Widget> choicesItems = <Widget>[
   Text('הוצאות'),
   Text('הכל'),

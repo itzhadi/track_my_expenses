@@ -249,6 +249,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.0"
+  fk_toggle:
+    dependency: "direct main"
+    description:
+      name: fk_toggle
+      sha256: "1db67707c46a4c962f43ede96c8828118edad3801d4d5fab44d077fdaad76f9f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.4"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -810,6 +818,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
+  toggle_switch:
+    dependency: "direct main"
+    description:
+      name: toggle_switch
+      sha256: "9e6af1f0c5a97d9de41109dc7b9e1b3bbe73417f89b10e0e44dc834fb493d4cb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   typed_data:
     dependency: transitive
     description:
