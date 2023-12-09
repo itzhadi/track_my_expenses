@@ -23,6 +23,20 @@ mixin _$AddExpensesStore on _AddExpensesStore, Store {
       (_$getIsPermanentComputed ??= Computed<bool>(() => super.getIsPermanent,
               name: '_AddExpensesStore.getIsPermanent'))
           .value;
+  Computed<dynamic>? _$descriptionControllerComputed;
+
+  @override
+  dynamic get descriptionController => (_$descriptionControllerComputed ??=
+          Computed<dynamic>(() => super.descriptionController,
+              name: '_AddExpensesStore.descriptionController'))
+      .value;
+  Computed<dynamic>? _$amountControllerComputed;
+
+  @override
+  dynamic get amountController => (_$amountControllerComputed ??=
+          Computed<dynamic>(() => super.amountController,
+              name: '_AddExpensesStore.amountController'))
+      .value;
 
   late final _$_isExpenseAtom =
       Atom(name: '_AddExpensesStore._isExpense', context: context);
@@ -73,8 +87,68 @@ mixin _$AddExpensesStore on _AddExpensesStore, Store {
     });
   }
 
+  late final _$_descriptionControllerAtom =
+      Atom(name: '_AddExpensesStore._descriptionController', context: context);
+
+  @override
+  TextEditingController get _descriptionController {
+    _$_descriptionControllerAtom.reportRead();
+    return super._descriptionController;
+  }
+
+  @override
+  set _descriptionController(TextEditingController value) {
+    _$_descriptionControllerAtom
+        .reportWrite(value, super._descriptionController, () {
+      super._descriptionController = value;
+    });
+  }
+
+  late final _$_amountControllerAtom =
+      Atom(name: '_AddExpensesStore._amountController', context: context);
+
+  @override
+  TextEditingController get _amountController {
+    _$_amountControllerAtom.reportRead();
+    return super._amountController;
+  }
+
+  @override
+  set _amountController(TextEditingController value) {
+    _$_amountControllerAtom.reportWrite(value, super._amountController, () {
+      super._amountController = value;
+    });
+  }
+
+  late final _$itemDateAtom =
+      Atom(name: '_AddExpensesStore.itemDate', context: context);
+
+  @override
+  DateTime? get itemDate {
+    _$itemDateAtom.reportRead();
+    return super.itemDate;
+  }
+
+  @override
+  set itemDate(DateTime? value) {
+    _$itemDateAtom.reportWrite(value, super.itemDate, () {
+      super.itemDate = value;
+    });
+  }
+
   late final _$_AddExpensesStoreActionController =
       ActionController(name: '_AddExpensesStore', context: context);
+
+  @override
+  void setItemDate(DateTime date) {
+    final _$actionInfo = _$_AddExpensesStoreActionController.startAction(
+        name: '_AddExpensesStore.setItemDate');
+    try {
+      return super.setItemDate(date);
+    } finally {
+      _$_AddExpensesStoreActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   void toggleIsExpense() {
@@ -102,8 +176,11 @@ mixin _$AddExpensesStore on _AddExpensesStore, Store {
   String toString() {
     return '''
 isPermanentToggleText: ${isPermanentToggleText},
+itemDate: ${itemDate},
 getIsExpense: ${getIsExpense},
-getIsPermanent: ${getIsPermanent}
+getIsPermanent: ${getIsPermanent},
+descriptionController: ${descriptionController},
+amountController: ${amountController}
     ''';
   }
 }

@@ -304,13 +304,13 @@ mixin _$ItemList on _ItemList, Store {
   }
 
   @override
-  void addItemModel(String desc, int amount, DateTime date, bool isExpense,
+  void addItemModel(String desc, int? amount, DateTime date, bool isExpense,
       bool isPermanent, Key key) {
     final _$actionInfo =
         _$_ItemListActionController.startAction(name: '_ItemList.addItemModel');
     try {
       return super
-          .addItemModel(desc, amount, date, isExpense, isPermanent, key);
+          .addItemModel(desc, amount!, date, isExpense, isPermanent, key);
     } finally {
       _$_ItemListActionController.endAction(_$actionInfo);
     }

@@ -113,7 +113,9 @@ abstract class _ItemList with Store {
   void calculateIncomes() {
     int sum = 0;
     incomesOnly.forEach((element) {
-      sum += int.parse(element.amount!);
+      if (getMontheName(element.date!.month) == _currentMonth) {
+        sum += int.parse(element.amount!);
+      }
     });
     _totalIncomes = sum;
   }
@@ -122,7 +124,9 @@ abstract class _ItemList with Store {
   void calculateExpenses() {
     int sum = 0;
     expensesOnly.forEach((element) {
-      sum += int.parse(element.amount!);
+      if (getMontheName(element.date!.month) == _currentMonth) {
+        sum += int.parse(element.amount!);
+      }
     });
     _totalExpenses = sum;
   }
@@ -148,7 +152,7 @@ abstract class _ItemList with Store {
   @action
   void addItemModel(String desc, int amount, DateTime date, bool isExpense,
       bool isPermanent, Key key) {
-    isExpense ? _totalExpenses += amount : _totalIncomes += amount;
+    //isExpense ? _totalExpenses += amount : _totalIncomes += amount;
     ItemModel item =
         ItemModel(desc, amount.toString(), date, isExpense, isPermanent, key);
     items.add(item);
@@ -166,8 +170,10 @@ abstract class _ItemList with Store {
   void removeAllItems() {
     items.removeWhere(
         (element) => getMontheName(element.date!.month) == _currentMonth);
-    setStartEndDateRange(
-        DateTimeRange(start: DateTime(1900), end: DateTime(1900)));
+    int targetMonth = HelperFunctions.getMonthNumber(_currentMonth);
+    setStartEndDateRange(DateTimeRange(
+        start: DateTime(DateTime.now().year, targetMonth, 1),
+        end: DateTime(DateTime.now().year, targetMonth + 1, 0)));
     calculateExpenses();
     calculateIncomes();
   }

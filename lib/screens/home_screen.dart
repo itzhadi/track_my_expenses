@@ -63,11 +63,24 @@ class _HomeScreenState extends State<HomeScreen> {
           onTap: (int i) {
             setState(
               () {
-                list.setCurrentMonth(DateTime.now());
+                DateTime now = DateTime.now();
+                list.setCurrentMonth(now);
+                final firstDayOfMonth = DateTime(now.year, now.month, 1);
+                final lastDayOfMonth = DateTime(now.year, now.month + 1, 0);
+                list.setStartEndDates(firstDayOfMonth, lastDayOfMonth);
+                list.setCurrentMonth(now);
                 addExpenseStore.initializeValues();
                 selectedPage = i;
-                if (selectedPage == 0 && list.showSearch) {
-                  list.toggleShowSearch();
+                if (selectedPage == 0) {
+                  list.calculateExpenses();
+                  list.calculateIncomes();
+                  if (list.showSearch) {
+                    list.toggleShowSearch();
+                  }
+                }
+                if (selectedPage == 1) {
+                  addExpenseStore.clearControllers();
+                  addExpenseStore.setItemDate(now);
                 }
               },
             );

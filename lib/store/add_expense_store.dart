@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../utils/colors.dart';
@@ -24,25 +25,50 @@ abstract class _AddExpensesStore with Store {
   @observable
   String isPermanentToggleText = "חד פעמי";
 
+  @observable
+  TextEditingController _descriptionController = TextEditingController();
+
+  @observable
+  TextEditingController _amountController = TextEditingController();
+
+  @observable
+  DateTime? itemDate = DateTime.now();
+
+  @computed
+  bool get getIsExpense => _isExpense;
+
+  @computed
+  bool get getIsPermanent => _isPermanent;
+
+  @computed
+  get descriptionController => _descriptionController;
+
+  @computed
+  get amountController => _amountController;
+
+  @action
+  void setItemDate(DateTime date) {
+    itemDate = date;
+  }
+
+  void calculateIsPermanentToggleText() {
+    isPermanentToggleText = _isPermanent ? "קבוע" : "חד פעמי";
+  }
+
   @action
   void toggleIsExpense() {
     _isExpense = !_isExpense;
     _isExpense ? print("הוצאה") : print("הכנסה");
   }
 
-  @computed
-  bool get getIsExpense => _isExpense;
-
   @action
   void toggleIsPermanent(int index) {
     _isPermanent = index == 1 ? true : false;
   }
 
-  @computed
-  bool get getIsPermanent => _isPermanent;
-
-  void calculateIsPermanentToggleText() {
-    isPermanentToggleText = _isPermanent ? "קבוע" : "חד פעמי";
+  void clearControllers() {
+    _descriptionController.clear();
+    _amountController.clear();
   }
 
   void initializeValues() {
