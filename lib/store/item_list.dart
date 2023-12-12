@@ -51,6 +51,9 @@ abstract class _ItemList with Store {
   @observable
   String _currentMonth = '';
 
+  @observable
+  int currentYear = DateTime.now().year;
+
   @computed
   ObservableList<ItemModel> get searchedItems {
     if (_searchItem.isEmpty && (_endDate == null && _startDate == null)) {
@@ -172,8 +175,8 @@ abstract class _ItemList with Store {
         (element) => getMontheName(element.date!.month) == _currentMonth);
     int targetMonth = HelperFunctions.getMonthNumber(_currentMonth);
     setStartEndDateRange(DateTimeRange(
-        start: DateTime(DateTime.now().year, targetMonth, 1),
-        end: DateTime(DateTime.now().year, targetMonth + 1, 0)));
+        start: DateTime(currentYear, targetMonth, 1),
+        end: DateTime(currentYear, targetMonth + 1, 0)));
     calculateExpenses();
     calculateIncomes();
   }
@@ -216,6 +219,7 @@ abstract class _ItemList with Store {
   @action
   void setCurrentMonth(DateTime currentDate) {
     _currentMonth = getMontheName(currentDate.month);
+    currentYear = currentDate.year;
   }
 
   get getCurrentMonthName => _currentMonth;

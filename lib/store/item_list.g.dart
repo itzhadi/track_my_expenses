@@ -245,6 +245,22 @@ mixin _$ItemList on _ItemList, Store {
     });
   }
 
+  late final _$currentYearAtom =
+      Atom(name: '_ItemList.currentYear', context: context);
+
+  @override
+  int get currentYear {
+    _$currentYearAtom.reportRead();
+    return super.currentYear;
+  }
+
+  @override
+  set currentYear(int value) {
+    _$currentYearAtom.reportWrite(value, super.currentYear, () {
+      super.currentYear = value;
+    });
+  }
+
   late final _$_ItemListActionController =
       ActionController(name: '_ItemList', context: context);
 
@@ -304,13 +320,13 @@ mixin _$ItemList on _ItemList, Store {
   }
 
   @override
-  void addItemModel(String desc, int? amount, DateTime date, bool isExpense,
+  void addItemModel(String desc, int amount, DateTime date, bool isExpense,
       bool isPermanent, Key key) {
     final _$actionInfo =
         _$_ItemListActionController.startAction(name: '_ItemList.addItemModel');
     try {
       return super
-          .addItemModel(desc, amount!, date, isExpense, isPermanent, key);
+          .addItemModel(desc, amount, date, isExpense, isPermanent, key);
     } finally {
       _$_ItemListActionController.endAction(_$actionInfo);
     }
@@ -466,6 +482,7 @@ items: ${items},
 filter: ${filter},
 showSearch: ${showSearch},
 showActionsBar: ${showActionsBar},
+currentYear: ${currentYear},
 searchedItems: ${searchedItems},
 getTotalExpenses: ${getTotalExpenses},
 getTotalIncomes: ${getTotalIncomes},

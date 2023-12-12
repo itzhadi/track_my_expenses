@@ -22,7 +22,15 @@ class BetweenDatesBox extends StatelessWidget {
     resetDates() {
       itemList.toggleShowDateRange(false);
       itemList.setStartEndDateRange(
-          DateTimeRange(start: DateTime(1900), end: DateTime(1900)));
+        DateTimeRange(
+          start: DateTime(itemList.currentYear,
+              HelperFunctions.getMonthNumber(itemList.getCurrentMonthName), 1),
+          end: DateTime(
+              itemList.currentYear,
+              HelperFunctions.getMonthNumber(itemList.getCurrentMonthName) + 1,
+              0),
+        ),
+      );
     }
 
     return AnimatedSwitcher(

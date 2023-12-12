@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:provider/provider.dart';
+import 'package:track_my_expenses/utils/helper_functions.dart';
 
 import '../store/item_list.dart';
 import '../utils/colors.dart';
@@ -13,8 +14,12 @@ class AppBarActionsIcons extends StatelessWidget {
     Future<DateTimeRange?> selectDate(BuildContext context) async {
       final DateTimeRange? result = await showDateRangePicker(
           context: context,
-          firstDate: DateTime(DateTime.now().year, DateTime.now().month, 1),
-          lastDate: DateTime.now(),
+          firstDate: DateTime(itemList.currentYear,
+              HelperFunctions.getMonthNumber(itemList.getCurrentMonthName), 1),
+          lastDate: DateTime(
+              itemList.currentYear,
+              HelperFunctions.getMonthNumber(itemList.getCurrentMonthName) + 1,
+              0),
           currentDate: DateTime.now(),
           locale:
               Locale("he", "IL"), // Set the locale to English (United States)

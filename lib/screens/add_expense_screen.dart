@@ -247,7 +247,7 @@ class AddExpense extends StatelessWidget {
                             list.addItemModel(
                                 addExpensesStore.descriptionController.text,
                                 int.tryParse(
-                                    addExpensesStore.amountController!.text!),
+                                    addExpensesStore.amountController!.text!)!,
                                 addExpensesStore.itemDate!,
                                 addExpensesStore.getIsExpense,
                                 addExpensesStore.getIsPermanent,

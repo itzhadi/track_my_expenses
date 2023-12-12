@@ -4,6 +4,7 @@ import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:provider/provider.dart';
 
 import '../store/item_list.dart';
+import '../utils/helper_functions.dart';
 
 class HorizontalMonthCalendar extends StatefulWidget {
   @override
@@ -37,13 +38,26 @@ class _HorizontalMonthCalendarState extends State<HorizontalMonthCalendar> {
             final firstDayOfMonth = DateTime(date.year, date.month, 1);
             final lastDayOfMonth = DateTime(date.year, date.month + 1, 0);
             list.setStartEndDates(firstDayOfMonth, lastDayOfMonth);
+            list.toggleShowDateRange(false);
+            list.setStartEndDateRange(
+              DateTimeRange(
+                start: DateTime(
+                    list.currentYear,
+                    HelperFunctions.getMonthNumber(list.getCurrentMonthName),
+                    1),
+                end: DateTime(
+                    list.currentYear,
+                    HelperFunctions.getMonthNumber(list.getCurrentMonthName) +
+                        1,
+                    0),
+              ),
+            );
           },
           thisMonthDayBorderColor: Colors.grey,
           height: 48.0,
           disableDayPressed: true,
           selectedDateTime: _currentDate,
           onHeaderTitlePressed: (date) {
-            //Todo
             print(date.toString());
           },
 
