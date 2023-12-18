@@ -261,8 +261,61 @@ mixin _$ItemList on _ItemList, Store {
     });
   }
 
+  late final _$currentDateAtom =
+      Atom(name: '_ItemList.currentDate', context: context);
+
+  @override
+  DateTime get currentDate {
+    _$currentDateAtom.reportRead();
+    return super.currentDate;
+  }
+
+  @override
+  set currentDate(DateTime value) {
+    _$currentDateAtom.reportWrite(value, super.currentDate, () {
+      super.currentDate = value;
+    });
+  }
+
+  late final _$redrewAtom = Atom(name: '_ItemList.redrew', context: context);
+
+  @override
+  bool get redrew {
+    _$redrewAtom.reportRead();
+    return super.redrew;
+  }
+
+  @override
+  set redrew(bool value) {
+    _$redrewAtom.reportWrite(value, super.redrew, () {
+      super.redrew = value;
+    });
+  }
+
   late final _$_ItemListActionController =
       ActionController(name: '_ItemList', context: context);
+
+  @override
+  void toogelRedrew() {
+    final _$actionInfo =
+        _$_ItemListActionController.startAction(name: '_ItemList.toogelRedrew');
+    try {
+      return super.toogelRedrew();
+    } finally {
+      _$_ItemListActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setCurrentDate(DateTime dateTime) {
+    final _$actionInfo = _$_ItemListActionController.startAction(
+        name: '_ItemList.setCurrentDate');
+    try {
+      return super.setCurrentDate(dateTime);
+    } finally {
+      _$_ItemListActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   void calculateIncomes() {
@@ -483,6 +536,8 @@ filter: ${filter},
 showSearch: ${showSearch},
 showActionsBar: ${showActionsBar},
 currentYear: ${currentYear},
+currentDate: ${currentDate},
+redrew: ${redrew},
 searchedItems: ${searchedItems},
 getTotalExpenses: ${getTotalExpenses},
 getTotalIncomes: ${getTotalIncomes},

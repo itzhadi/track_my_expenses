@@ -68,10 +68,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 final firstDayOfMonth = DateTime(now.year, now.month, 1);
                 final lastDayOfMonth = DateTime(now.year, now.month + 1, 0);
                 list.setStartEndDates(firstDayOfMonth, lastDayOfMonth);
-                list.setCurrentMonth(now);
                 addExpenseStore.initializeValues();
                 selectedPage = i;
                 if (selectedPage == 0) {
+                  list.toogelRedrew();
                   list.calculateExpenses();
                   list.calculateIncomes();
                   if (list.showSearch) {

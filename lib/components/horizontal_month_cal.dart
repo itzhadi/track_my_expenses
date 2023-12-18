@@ -7,6 +7,9 @@ import '../store/item_list.dart';
 import '../utils/helper_functions.dart';
 
 class HorizontalMonthCalendar extends StatefulWidget {
+  final Key? key;
+  const HorizontalMonthCalendar(this.key);
+
   @override
   _HorizontalMonthCalendarState createState() =>
       _HorizontalMonthCalendarState();
@@ -56,7 +59,7 @@ class _HorizontalMonthCalendarState extends State<HorizontalMonthCalendar> {
           thisMonthDayBorderColor: Colors.grey,
           height: 48.0,
           disableDayPressed: true,
-          selectedDateTime: _currentDate,
+          selectedDateTime: list.currentDate,
           onHeaderTitlePressed: (date) {
             print(date.toString());
           },

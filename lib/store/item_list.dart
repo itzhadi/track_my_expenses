@@ -54,6 +54,24 @@ abstract class _ItemList with Store {
   @observable
   int currentYear = DateTime.now().year;
 
+  @observable
+  DateTime currentDate = DateTime.now();
+
+  @observable
+  bool redrew = true;
+
+  @action
+  void toogelRedrew() {
+    redrew = !redrew;
+  }
+
+  get getRedrew => redrew;
+
+  @action
+  setCurrentDate(DateTime dateTime) {
+    currentDate = dateTime;
+  }
+
   @computed
   ObservableList<ItemModel> get searchedItems {
     if (_searchItem.isEmpty && (_endDate == null && _startDate == null)) {

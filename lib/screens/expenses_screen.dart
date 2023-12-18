@@ -61,7 +61,7 @@ class Expenses extends StatelessWidget {
                   top: 10.0, left: 30.0, right: 30.0, bottom: 5),
               child: Column(
                 children: [
-                  HorizontalMonthCalendar(),
+                  HorizontalMonthCalendar(ValueKey(itemList.getRedrew)),
                   Column(
                     children: [
                       Row(
