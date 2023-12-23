@@ -14,6 +14,7 @@ class AppBarActionsIcons extends StatelessWidget {
     Future<DateTimeRange?> selectDate(BuildContext context) async {
       final DateTimeRange? result = await showDateRangePicker(
           context: context,
+          initialEntryMode: DatePickerEntryMode.calendarOnly,
           firstDate: DateTime(itemList.currentYear,
               HelperFunctions.getMonthNumber(itemList.getCurrentMonthName), 1),
           lastDate: DateTime(

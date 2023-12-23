@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:bouncing_button/bouncing_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -222,27 +223,9 @@ class AddExpense extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 7),
-                      MaterialButton(
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 5.0),
-                            child: Text(
-                              "הוסף",
-                              style: TextStyle(fontSize: 20),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          textColor: Colors.white30,
-                          height: 45,
-                          minWidth: 100,
-                          disabledColor: Colors.grey,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            side: BorderSide(
-                              color: Colors.white30,
-                              width: 0.7,
-                            ),
-                          ),
-                          color: main_color,
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10.0),
+                        child: BouncingButton(
                           onPressed: () {
                             list.addItemModel(
                                 addExpensesStore.descriptionController.text,
@@ -252,7 +235,32 @@ class AddExpense extends StatelessWidget {
                                 addExpensesStore.getIsExpense,
                                 addExpensesStore.getIsPermanent,
                                 UniqueKey());
-                          }),
+                          },
+                          duration: Duration(milliseconds: 222),
+                          child: Container(
+                            width: 125.0,
+                            height: 49.0,
+                            decoration: BoxDecoration(
+                                color: main_color,
+                                borderRadius: BorderRadius.circular(10.0),
+                                border: Border.all(color: Colors.white30),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black87,
+                                      spreadRadius: 1,
+                                      blurRadius: 10,
+                                      offset: Offset(3, 3)),
+                                ]),
+                            child: Center(
+                              child: Text(
+                                'הוסף',
+                                style: TextStyle(
+                                    fontSize: 22, color: Colors.white30),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),

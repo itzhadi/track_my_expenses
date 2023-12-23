@@ -57,6 +57,7 @@ dependencies:
   flutter_slidable: ^3.0.0
   fk_toggle: ^0.1.4
   toggle_switch: ^2.1.0
+  bouncing_button: ^0.0.1+2
 
 dev_dependencies:
   flutter_test:
