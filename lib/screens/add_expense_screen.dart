@@ -20,8 +20,10 @@ class AddExpense extends StatelessWidget {
   Widget build(BuildContext context) {
     final addExpensesStore = Provider.of<AddExpensesStore>(context);
     final list = Provider.of<ItemList>(context);
+    final _formKey = GlobalKey<FormState>();
     int labelIndexIsPermanent = 0;
     int lableIndexIsExpense = 0;
+    bool _autovalidate = false;
 
     Future<DateTime?> selectDate(BuildContext context) async {
       final DateTime? result = await showDatePicker(
@@ -79,7 +81,7 @@ class AddExpense extends StatelessWidget {
             SingleChildScrollView(
               child: Container(
                 width: 300,
-                height: 350,
+                height: 361,
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: Colors.white70, // Border color
@@ -88,180 +90,202 @@ class AddExpense extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Center(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 15, bottom: 8.0, left: 15.0, right: 15),
-                        child: TextField(
-                          controller: addExpensesStore.descriptionController,
-                          maxLength: 40,
-                          cursorColor: Colors.white30,
-                          textAlign: TextAlign.center,
-                          style: kTextAlertEditDialog,
-                          decoration: InputDecoration(
-                            hintText: "תיאור",
-                            hintStyle: TextStyle(
-                                color: Colors.white30,
-                                fontWeight: FontWeight.w100,
-                                fontSize: 20),
-                            counterText: "",
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  width: 0.15, color: Colors.white70),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  width: 0.15, color: Colors.white70),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 5),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            bottom: 8.0, left: 15.0, right: 15),
-                        child: TextField(
-                          maxLength: 8,
-                          textAlign: TextAlign.center,
-                          keyboardType: TextInputType.number,
-                          inputFormatters: <TextInputFormatter>[
-                            FilteringTextInputFormatter
-                                .digitsOnly // Input filter to allow only digits
-                          ],
-                          controller: addExpensesStore.amountController,
-                          style: kTextAlertEditDialog,
-                          decoration: InputDecoration(
-                            hintText: "סכום",
-                            hintStyle: TextStyle(
-                                color: Colors.white30,
-                                fontWeight: FontWeight.w100,
-                                fontSize: 20),
-                            counterText: "",
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  width: 0.15, color: Colors.white70),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  width: 0.15, color: Colors.white70),
+                  child: Form(
+                    key: _formKey,
+                    // autovalidate: _autovalidate,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 15, bottom: 8.0, left: 15.0, right: 15),
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'אנא הוסף תיאור';
+                              }
+                              return null;
+                            },
+                            controller: addExpensesStore.descriptionController,
+                            maxLength: 40,
+                            cursorColor: Colors.white30,
+                            textAlign: TextAlign.center,
+                            style: kTextAlertEditDialog,
+                            decoration: InputDecoration(
+                              hintText: "תיאור",
+                              hintStyle: TextStyle(
+                                  color: Colors.white30,
+                                  fontWeight: FontWeight.w100,
+                                  fontSize: 20),
+                              counterText: "",
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 0.15, color: Colors.white70),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 0.15, color: Colors.white70),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Column(
-                              children: [
-                                IconButton(
-                                  padding: EdgeInsetsDirectional.only(
-                                      start: 2, bottom: 25),
-                                  onPressed: () {
-                                    selectDate(context);
-                                  },
-                                  splashRadius: 10,
-                                  icon: Icon(
-                                    Icons.date_range,
-                                    size: 46,
-                                    color: Colors.white60,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 10.0),
-                                  child: Text(
-                                    HelperFunctions.getDateFormat(
-                                        addExpensesStore.itemDate!),
-                                    style: TextStyle(
-                                        color: Colors.white54, fontSize: 10),
-                                  ),
-                                ),
-                              ],
+                        SizedBox(height: 5),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              bottom: 8.0, left: 15.0, right: 15),
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'אנא הוסף סכום';
+                              }
+                              return null;
+                            },
+                            maxLength: 8,
+                            textAlign: TextAlign.center,
+                            keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter
+                                  .digitsOnly // Input filter to allow only digits
+                            ],
+                            controller: addExpensesStore.amountController,
+                            style: kTextAlertEditDialog,
+                            decoration: InputDecoration(
+                              hintText: "סכום",
+                              hintStyle: TextStyle(
+                                  color: Colors.white30,
+                                  fontWeight: FontWeight.w100,
+                                  fontSize: 20),
+                              counterText: "",
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 0.15, color: Colors.white70),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 0.15, color: Colors.white70),
+                              ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 10.0),
-                              child: Column(
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Column(
                                 children: [
-                                  ToggleSwitch(
-                                    minWidth: 50.0,
-                                    minHeight: 40.0,
-                                    initialLabelIndex: labelIndexIsPermanent,
-                                    cornerRadius: 11.0,
-                                    activeFgColor: Colors.white,
-                                    inactiveBgColor: Colors.grey,
-                                    inactiveFgColor: Colors.white,
-                                    totalSwitches: 2,
-                                    icons: [
-                                      Icons.push_pin_outlined,
-                                      Icons.push_pin_sharp
-                                    ],
-                                    iconSize: 30.0,
-                                    activeBgColors: [
-                                      [Colors.black45, Colors.black26],
-                                      [Colors.black45, Colors.black26]
-                                    ],
-                                    onToggle: (index) {
-                                      labelIndexIsPermanent = index!;
-                                      addExpensesStore.toggleIsPermanent(index);
+                                  IconButton(
+                                    padding: EdgeInsetsDirectional.only(
+                                        start: 2, bottom: 25),
+                                    onPressed: () {
+                                      selectDate(context);
                                     },
+                                    splashRadius: 10,
+                                    icon: Icon(
+                                      Icons.date_range,
+                                      size: 46,
+                                      color: Colors.white60,
+                                    ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.all(6.0),
+                                    padding: const EdgeInsets.only(right: 10.0),
                                     child: Text(
-                                      addExpensesStore.isPermanentToggleText,
+                                      HelperFunctions.getDateFormat(
+                                          addExpensesStore.itemDate!),
                                       style: TextStyle(
                                           color: Colors.white54, fontSize: 10),
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
-                            ),
-                          ],
+                              Padding(
+                                padding: const EdgeInsets.only(top: 10.0),
+                                child: Column(
+                                  children: [
+                                    ToggleSwitch(
+                                      minWidth: 50.0,
+                                      minHeight: 40.0,
+                                      initialLabelIndex: labelIndexIsPermanent,
+                                      cornerRadius: 11.0,
+                                      activeFgColor: Colors.white,
+                                      inactiveBgColor: Colors.grey,
+                                      inactiveFgColor: Colors.white,
+                                      totalSwitches: 2,
+                                      icons: [
+                                        Icons.push_pin_outlined,
+                                        Icons.push_pin_sharp
+                                      ],
+                                      iconSize: 30.0,
+                                      activeBgColors: [
+                                        [Colors.black45, Colors.black26],
+                                        [Colors.black45, Colors.black26]
+                                      ],
+                                      onToggle: (index) {
+                                        labelIndexIsPermanent = index!;
+                                        addExpensesStore
+                                            .toggleIsPermanent(index);
+                                      },
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(6.0),
+                                      child: Text(
+                                        addExpensesStore.isPermanentToggleText,
+                                        style: TextStyle(
+                                            color: Colors.white54,
+                                            fontSize: 10),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 7),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 10.0),
-                        child: BouncingButton(
-                          onPressed: () {
-                            list.addItemModel(
-                                addExpensesStore.descriptionController.text,
-                                int.tryParse(
-                                    addExpensesStore.amountController!.text!)!,
-                                addExpensesStore.itemDate!,
-                                addExpensesStore.getIsExpense,
-                                addExpensesStore.getIsPermanent,
-                                UniqueKey());
-                          },
-                          duration: Duration(milliseconds: 222),
-                          child: Container(
-                            width: 125.0,
-                            height: 49.0,
-                            decoration: BoxDecoration(
-                                color: main_color,
-                                borderRadius: BorderRadius.circular(10.0),
-                                border: Border.all(color: Colors.white30),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.black87,
-                                      spreadRadius: 1,
-                                      blurRadius: 10,
-                                      offset: Offset(3, 3)),
-                                ]),
-                            child: Center(
-                              child: Text(
-                                'הוסף',
-                                style: TextStyle(
-                                    fontSize: 22, color: Colors.white30),
+                        SizedBox(height: 7),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10.0),
+                          child: BouncingButton(
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                // If the form is valid, display a snackbar. In the real world,
+                                // you'd often call a server or save the information in a database.
+                                list.addItemModel(
+                                    addExpensesStore.descriptionController.text,
+                                    int.tryParse(addExpensesStore
+                                        .amountController!.text!)!,
+                                    addExpensesStore.itemDate!,
+                                    addExpensesStore.getIsExpense,
+                                    addExpensesStore.getIsPermanent,
+                                    UniqueKey());
+                              }
+                            },
+                            duration: Duration(milliseconds: 222),
+                            child: Container(
+                              width: 125.0,
+                              height: 49.0,
+                              decoration: BoxDecoration(
+                                  color: main_color,
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  border: Border.all(color: Colors.white30),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black87,
+                                        spreadRadius: 1,
+                                        blurRadius: 10,
+                                        offset: Offset(3, 3)),
+                                  ]),
+                              child: Center(
+                                child: Text(
+                                  'הוסף',
+                                  style: TextStyle(
+                                      fontSize: 22, color: Colors.white30),
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

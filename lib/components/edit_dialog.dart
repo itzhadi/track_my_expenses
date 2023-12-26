@@ -21,6 +21,7 @@ class _EditPopupState extends State<EditPopup> {
   TextEditingController? _descriptionController;
   TextEditingController? _amountController;
   DateTime? _selectedDate;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -71,98 +72,116 @@ class _EditPopupState extends State<EditPopup> {
       ),
       child: Padding(
         padding: EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            TextField(
-              maxLength: 40,
-              cursorColor: Colors.white30,
-              textAlign: TextAlign.center,
-              style: kTextAlertEditDialog,
-              controller: _descriptionController,
-              decoration: InputDecoration(
-                counterText: "",
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 0.15, color: Colors.white70),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 0.15, color: Colors.white70),
-                ),
-              ),
-            ),
-            SizedBox(height: 10),
-            TextField(
-              maxLength: 8,
-              textAlign: TextAlign.center,
-              keyboardType: TextInputType.number,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .digitsOnly // Input filter to allow only digits
-              ],
-              controller: _amountController,
-              style: kTextAlertEditDialog,
-              decoration: InputDecoration(
-                counterText: "",
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 0.15, color: Colors.white70),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 0.15, color: Colors.white70),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'אנא הוסף תיאור';
+                  }
+                  return null;
+                },
+                maxLength: 40,
+                cursorColor: Colors.white30,
+                textAlign: TextAlign.center,
+                style: kTextAlertEditDialog,
+                controller: _descriptionController,
+                decoration: InputDecoration(
+                  counterText: "",
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(width: 0.15, color: Colors.white70),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(width: 0.15, color: Colors.white70),
+                  ),
                 ),
               ),
-            ),
-            Row(
-              children: [
-                Text(
-                  HelperFunctions.getDateFormat(_selectedDate as DateTime)!
-                      .toString(),
-                  style: kTextAlertEditDialog,
+              SizedBox(height: 10),
+              TextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'אנא הוסף סכום';
+                  }
+                  return null;
+                },
+                maxLength: 8,
+                textAlign: TextAlign.center,
+                keyboardType: TextInputType.number,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter
+                      .digitsOnly // Input filter to allow only digits
+                ],
+                controller: _amountController,
+                style: kTextAlertEditDialog,
+                decoration: InputDecoration(
+                  counterText: "",
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(width: 0.15, color: Colors.white70),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(width: 0.15, color: Colors.white70),
+                  ),
                 ),
-                SizedBox(width: 10),
-                IconButton(
-                    icon: Icon(Icons.date_range),
-                    color: Colors.white30,
+              ),
+              Row(
+                children: [
+                  Text(
+                    HelperFunctions.getDateFormat(_selectedDate as DateTime)!
+                        .toString(),
+                    style: kTextAlertEditDialog,
+                  ),
+                  SizedBox(width: 10),
+                  IconButton(
+                      icon: Icon(Icons.date_range),
+                      color: Colors.white30,
+                      onPressed: () {
+                        setState(() {
+                          selectDate(context);
+                        });
+                      }),
+                ],
+              ),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  MaterialButton(
                     onPressed: () {
-                      setState(() {
-                        selectDate(context);
-                      });
-                    }),
-              ],
-            ),
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                MaterialButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(
-                    'ביטול',
-                    style: TextStyle(
-                        fontFamily: 'SecularOne',
-                        color: Colors.white54,
-                        fontSize: 18),
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(
+                      'ביטול',
+                      style: TextStyle(
+                          fontFamily: 'SecularOne',
+                          color: Colors.white54,
+                          fontSize: 18),
+                    ),
                   ),
-                ),
-                MaterialButton(
-                  onPressed: () {
-                    String desc = _descriptionController!.text;
-                    String amount = _amountController!.text;
-                    widget.updateItem(desc, amount, _selectedDate as DateTime);
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(
-                    'אישור',
-                    style: TextStyle(
-                        fontFamily: 'SecularOne',
-                        color: Colors.white54,
-                        fontSize: 18),
+                  MaterialButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        String desc = _descriptionController!.text;
+                        String amount = _amountController!.text;
+                        widget.updateItem(
+                            desc, amount, _selectedDate as DateTime);
+                        Navigator.of(context).pop();
+                      }
+                    },
+                    child: Text(
+                      'אישור',
+                      style: TextStyle(
+                          fontFamily: 'SecularOne',
+                          color: Colors.white54,
+                          fontSize: 18),
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
